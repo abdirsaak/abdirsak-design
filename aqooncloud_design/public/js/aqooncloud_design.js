@@ -1,0 +1,3633 @@
+// const openMenuFirstPageIcon = document.querySelector("[data-first-page-open-nav]");
+// const closeMenuFirstPageIcon = document.querySelector(".close_mennu");
+
+// function openFirstPageNav() {
+// 	let navbardata = JSON.parse(localStorage.getItem("navdata") || JSON.parse([]));
+// 	//  console.log("navbardata", navbardata)
+
+// 	const menuFirstPage = document.querySelector("[data-menu-first-page]");
+// 	menuFirstPage.classList.add("open-menu");
+// }
+
+// function closeFirstPageNav() {
+// 	const menuFirstPage = document.querySelector("[data-menu-first-page]");
+// 	menuFirstPage.classList.remove("open-menu");
+// }
+
+// function userHasRole(roleName) {
+// 	let hasRole = frappe.boot.user.roles.includes(roleName);
+
+// 	console.log("hasRole : ", hasRole);
+
+// 	return hasRole;
+// }
+
+// /**
+//  * Checks if the current user has notification permissions based on a server-side check.
+//  * Caches the result in sessionStorage to avoid repeated API calls.
+//  * @returns {Promise<boolean>} A promise that resolves to true or false.
+//  */
+
+// async function make_cust_nav_bar(navbardata) {
+// 	// alert("")
+// 	// console.log("navbardata", navbardata)
+// 	let navitems = ``;
+// 	let dropDownitems = ``;
+// 	let moredropDownitems = ``;
+// 	let reportGroups = {};
+
+// 	// desktop (links)
+// 	navbardata.forEach((el, index) => {
+// 		if (el.type == "DocType" && el.doc_view !== "List") {
+// 			if (index > 10) {
+// 				moredropDownitems += `<a class="dropdown-item "
+//         data-link-to="${el.link_to}"
+//          href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			} else {
+// 				navitems += `<a class="nav-link nav-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			}
+// 		} else if (el.type == "Dashboard") {
+// 			if (index > 10) {
+// 				moredropDownitems += `<a class="dropdown-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+// 			} else {
+// 				navitems += `<a class="nav-link nav-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+// 			}
+// 		} else if (el.type == "DocType" && el.doc_view == "List") {
+// 			if (index > 10) {
+// 				moredropDownitems += `<a class="dropdown-item "
+//         data-link-to="${el.link_to}"
+//         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			} else {
+// 				navitems += `<a class="nav-link nav-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			}
+// 		} else if (el.type == "Page") {
+// 			if (index > 10) {
+// 				moredropDownitems += `<a class="dropdown-item "
+//         data-link-to="${el.link_to}"
+//         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			} else {
+// 				navitems += `<a class="nav-link nav-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 			}
+// 		} else if (el.type == "Insights Dashboard") {
+// 			if (index > 10) {
+// 				moredropDownitems += `<a class="dropdown-item "
+//         data-link-to="${el.link_to}"
+//         href="/insights/public/dashboard/${el.dashboard_link}" , target= "_blank">${el.label}</a>`;
+// 			} else {
+// 				navitems += `<a class="nav-link nav-item"
+//         data-link-to="${el.link_to}"
+//         href="/insights/public/dashboard/${el.dashboard_link}" target= "_blank">${el.label}</a>`;
+// 			}
+// 		} else if (el.type == "Report") {
+// 			// navitems += `<a class="nav-link nav-item" href="/app/${el.label
+// 			//   .replace(" ", "-")
+// 			//   .toLowerCase()}/view/report">${el.label}</a>`
+// 			if (el.group) {
+// 				if (!reportGroups[el.group]) {
+// 					reportGroups[el.group] = ``;
+// 					reportGroups[el.group] += `<a class="dropdown-item"
+//           data-link-to="${el.link_to}"
+//           href="/app/query-report/${el.link_to}">${el.label}</a>`;
+// 				} else {
+// 					reportGroups[el.group] += `<a class="dropdown-item"
+//           data-link-to="${el.link_to}"
+//           href="/app/query-report/${el.link_to}">${el.label}</a>`;
+// 				}
+// 			} else {
+// 				dropDownitems += `<a class="dropdown-item"
+//         data-link-to="${el.link_to}"
+//         href="/app/query-report/${el.link_to}">${el.label}</a>`;
+// 			}
+// 		}
+// 	});
+// 	let reportsMenu = ``;
+// 	for (var key in reportGroups) {
+// 		// Access the property value using data[key]
+// 		// console.log("Key: " + key);
+// 		reportsMenu += `
+//         <div class="dropdown nav-item">
+//         <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//           ${key}
+//         </a>
+//         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//          ${reportGroups[key]}
+         
+//         </div>
+//       </div>
+//            `;
+// 	}
+
+// 	if (moredropDownitems) {
+// 		navitems += `
+// 			<div class="dropdown nav-item">
+// 	 <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+// 	   More
+// 	 </a>
+// 	 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+// 	  ${moredropDownitems}
+	  
+// 	 </div>
+//    </div>
+// 			`;
+// 	}
+// 	if (reportsMenu) {
+// 		navitems += reportsMenu;
+// 	}
+// 	if (dropDownitems) {
+// 		navitems += `
+// 		 <div class="dropdown nav-item">
+//   <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//     Reports
+//   </a>
+//   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//    ${dropDownitems}
+   
+//   </div>
+// </div>
+// 		 `;
+// 	}
+
+// 	// mobile menu (links)
+// 	let mobile_links = "";
+// 	let report_links = "";
+// 	// Loop through navbardata
+// 	navbardata.forEach((el) => {
+// 		// Generate DocType links
+// 		if (el.type === "DocType") {
+// 			mobile_links += `
+//       <a class="companies__title" onclick="closeFirstPageNav()"
+//       data-link-to="${el.link_to}"
+//       href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 		} else if (el.type == "Page") {
+// 			mobile_links += `<a class="companies__title" onclick="closeFirstPageNav()"
+//       data-link-to="${el.link_to}"
+//       href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+// 		} else if (el.type === "Dashboard") {
+// 			mobile_links += `<a class="companies__title" onclick="closeFirstPageNav()"
+//       data-link-to="${el.link_to}"
+//       href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+// 		}
+
+// 		if (el.type === "Insights Dashboard") {
+// 			// window.location.href = `http://104.251.219.249/insights/dashboard`;
+// 			mobile_links += `
+//       <a class="companies__title"
+//       data-link-to="${el.link_to}"
+//       href="/insights/public/dashboard/${el.dashboard_link}">${el.label}</a>`;
+
+// 			// frappe.set_route(
+// 			//   `/insights/public/dashboard/${doc.home_shortcut[0].dashboard_link}`
+// 			// )
+// 		}
+
+// 		// Collect Report links into report_links
+// 		if (el.type === "Report") {
+// 			report_links += `
+//       <a class="dropdown-item" onclick="closeFirstPageNav()"
+//       data-link-to="${el.link_to}"
+//       href="/app/query-report/${el.link_to}">
+//         ${el.label}
+//       </a>`;
+// 		}
+// 	});
+
+// 	// Create a single dropdown for Reports
+// 	if (report_links) {
+// 		mobile_links += `
+//     <div class="dropdown">
+//       <a style="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//         Reports
+//       </a>
+//       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+//         ${report_links}
+//       </div>
+//     </div>`;
+// 	}
+
+// 	// Only show notification icon if the user has a role with the permission enabled.
+// 	// const canShowNotifications = await checkNotificationPermission(); // ✨ Await the result
+// 	const canShowNotifications = userHasRole("System Manager");
+// 	const notificationIconHTML = `
+//     <div class="nav-item dropdown dropdown-notifications dropdown-mobile hidden">
+//       <button
+//         class="btn-reset nav-link notifications-icon"
+//         data-toggle="dropdown"
+//         aria-haspopup="true"
+//         aria-expanded="false"
+//       >
+//         <span class="notifications-seen">
+//           <span class="sr-only">${__("No new notifications")}</span>
+//           <svg class="es-icon icon-sm" style="stroke:none;"><use href="#es-line-notifications"></use></svg>
+//         </span>
+//         <span class="notifications-unseen">
+//           <span class="sr-only">${__("You have unseen notifications")}</span>
+//           <svg class="es-icon icon-sm"><use href="#es-line-notifications-unseen"></use></svg>
+//         </span>
+//       </button>
+//       <div class="dropdown-menu notifications-list dropdown-menu-right" role="menu">
+//         <div class="notification-list-header">
+//           <div class="header-items"></div>
+//           <div class="header-actions"></div>
+//         </div>
+//         <div class="notification-list-body">
+//           <div class="panel-notifications"></div>
+//           <div class="panel-events"></div>
+//           <div class="panel-changelog-feed"></div>
+//         </div>
+//       </div>
+//     </div>
+//   `;
+// 	console.log("canShowNotifications : ", canShowNotifications);
+// 	// console.log("notificationIconHTML : ", notificationIconHTML);
+// 	// console.log("frappe.boot.desk_settings : ", frappe.boot.desk_settings);
+// 	// console.log("frappe.boot : ", frappe.boot);
+
+// 	const SearchBarHtml = canShowNotifications
+// 		? `
+//   <form class="form-inline fill-width justify-content-end" role="search" onsubmit="return false;">
+//           <div class="input-group search-bar text-muted">
+//             <input
+//               id="navbar-search"
+//               type="text"
+//               class="form-control"
+//               placeholder="${__("Search or type a command ({0})", [
+// 					frappe.utils.is_mac() ? "⌘ + G" : "Ctrl + G",
+// 				])}"
+//               aria-haspopup="true"
+//             >
+//             <span class="search-icon">
+//               <svg class="icon icon-sm"><use href="#icon-search"></use></svg>
+//             </span>
+//           </div>
+//         </form>
+//   `
+// 		: "";
+// 	const chatIconHTML = `
+//     <div class="nav-item dropdown dropdown-notifications dropdown-mobile chat-navbar-icon" title="${__(
+// 		"Show Chats"
+// 	)}">
+//       ${frappe.utils.icon("small-message", "md")}
+//       <span class="badge" id="chat-notification-count"></span>
+//     </div>
+//   `;
+
+// 	// ${chatIconHTML}
+
+// 	navbar = `
+//     <div class="overlay" data-overlay-first-page></div>
+//     <div class="overlay" data-overlay-first-page></div>
+//     <div class="menu" data-menu-first-page>
+//       <div class="profile__img__close__nav">
+//       <div class="menu_profile__image__name"></div>
+//       <div class="close__navbar__icon" data-first-page-close-nav>
+//         <i class="fa fa-x"></i>
+//       </div>
+//       </div>
+    
+//       <div class="menu__companies">
+      
+//       <span class="close_mennu" onclick="closeFirstPageNav()">Close</span>
+//    ${mobile_links}  
+//       </div>
+
+//       <div class="menu__profile">
+//         <div class="dropdown">
+//           <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+//           My Profile
+//           </a>
+//           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">		  
+//            <button class="dropdown-item" onclick="frappe.ui.toolbar.route_to_user()">My Settings</button>
+//            <button class="dropdown-item" onclick="frappe.ui.toolbar.clear_cache()">Reload</button>
+//            <div class="dropdown-divider"></div>
+//            <button class="dropdown-item" onclick="frappe.app.logout()">Log out</button>
+//          </div>  
+//         </div>  
+//       </div>
+//     </div>
+    
+//     <header class="header navbar">
+//         <div class="logo__navlinks">
+//             ${navitems}
+//         </div>
+        
+//         <div class="header-right-section">
+//           ${SearchBarHtml}
+//           <div class="profile__image__name mr-3">
+//             ${notificationIconHTML}
+            
+
+                
+//           </div>
+//         </div>
+
+//         <div class="open-navbarbtn" data-first-page-open-nav onclick="openFirstPageNav()">
+//             <i class="fa fa-bars"></i>
+//         </div>
+//     </header>
+//     `;
+
+// 	return navbar;
+// }
+
+// function fetch_and_update_counts(navbardata) {
+// 	console.log("fetch_and_update_counts is called with this navbardata : ", navbardata);
+// 	// Filter for shortcuts that actually have a stats_filter
+// 	const shortcuts_with_filters = navbardata.filter((s) => s.stats_filter);
+
+// 	if (shortcuts_with_filters.length === 0) {
+// 		// No need to make an API call if no filters are set
+// 		return;
+// 	}
+
+// 	frappe.call({
+// 		method: "aqooncloud_design.api.template.get_shortcut_counts",
+// 		args: {
+// 			// Pass the list of shortcuts as a JSON string
+// 			shortcuts: JSON.stringify(shortcuts_with_filters),
+// 		},
+// 		callback: (r) => {
+// 			console.log("get_shortcut_counts api result is : ", r);
+// 			if (r.message) {
+// 				const counts = r.message;
+// 				console.log("counts is : ", counts);
+// 				// Loop through the returned counts
+// 				for (const doctype in counts) {
+// 					const count = counts[doctype];
+// 					console.log("counts[doctype] is : ", count);
+// 					// Find the corresponding link in the navbar using the data attribute
+// 					const link = $(`.header.navbar a[data-link-to="${doctype}"]`);
+// 					console.log("link is : ", link);
+// 					if (link.length) {
+// 						// Append a count badge to the link
+// 						// First, remove any existing badge to prevent duplicates on re-render
+// 						link.find(".count-badge").remove();
+// 						link.append(` <span class="count-badge">${count}</span>`);
+// 					}
+// 				}
+// 			}
+// 		},
+// 		// error:
+// 	});
+// }
+
+// async function make_header_nav(data) {
+// 	let navhtml = await make_cust_nav_bar(data);
+
+// 	if (frappe.boot && frappe.boot.home_page !== "setup-wizard") {
+// 		let route = window.location.href;
+// 		// alert(window.location.href)
+// 		// if(route !== "http://localhost/app" &&  route !== "http://localhost/app/home" ){
+// 		// frappe.frappe_toolbar = new frappe.ui.toolbar.Toolbar();
+// 		// alert(frappe.session.user)
+// 		// console.log(frappe.boot)
+// 		// $(navhtml).prependTo($(".header_sec").empty())
+
+// 		// Clear the header section first, then prepend
+// 		$(".header_sec").empty();
+// 		$(navhtml).prependTo($(".header_sec"));
+
+// 		// Build persistent sidebar using same modules source as app_page
+// 		make_persistent_sidebar();
+
+// 		//
+// 		fetch_and_update_counts(data);
+
+// 		// Wait for DOM to be ready before setting up events
+// 		// Initialize centralized notification system for the header
+// 		if (frappe.boot.desk_settings.notifications && frappe.session.user !== "Guest") {
+// 			try {
+// 				new frappe.ui.Notifications();
+// 			} catch (e) {
+// 				/* noop */
+// 			}
+// 		}
+
+// 		// =================================================================
+// 		// START: MODIFIED CHAT INITIALIZATION BLOCK
+// 		// =================================================================
+// 		// console.log("frappe.Chat is : ", frappe.Chat);
+// 		// console.log(
+// 		//   "window.frappe_chat_instance is : ",
+// 		//   window.frappe_chat_instance
+// 		// );
+// 		if (frappe.Chat) {
+// 			try {
+// 				// If the chat instance doesn't exist, create it for the first time.
+// 				if (!window.frappe_chat_instance) {
+// 					window.frappe_chat_instance = new frappe.Chat();
+// 					// console.log("Frappe Chat Initialized Successfully.");
+// 				} else {
+// 					// If the instance already exists, it means the header was just
+// 					// re-rendered. We just need to re-attach the events to the new icon.
+// 					window.frappe_chat_instance.setup_events();
+// 					// console.log("Frappe Chat events re-attached to new header.");
+// 				}
+// 			} catch (e) {
+// 				console.error("Failed to initialize or re-bind Frappe Chat:", e);
+// 			}
+// 		}
+// 		// =================================================================
+// 		// END: MODIFIED CHAT INITIALIZATION BLOCK
+// 		// =================================================================
+
+// 		if (frappe.boot.desk_settings.search_bar) {
+// 			try {
+// 				let awesome_bar = new frappe.search.AwesomeBar();
+// 				awesome_bar.setup("#navbar-search");
+// 			} catch (e) {
+// 				/* noop */
+// 			}
+// 		}
+
+// 		// Manage nav overflow into a dynamic "More" dropdown
+// 		try {
+// 			manageNavOverflow();
+// 			window.addEventListener("resize", frappe.utils.throttle(manageNavOverflow, 200));
+// 		} catch (e) {
+// 			/* noop */
+// 		}
+
+// 		// $('.header_sec').empty('')
+// 		// $(navhtml).appendTo('.header_sec')
+// 		// let awesome_bar = new frappe.search.AwesomeBar();
+// 		//  awesome_bar.setup("#navbar-search");
+// 		// }
+// 	}
+// }
+
+// if (JSON.parse(localStorage.getItem("navdata")) === null) {
+// 	localStorage.setItem("navdata", JSON.stringify([]));
+// }
+
+// frappe.ui.Page = class Page {
+// 	constructor(opts) {
+// 		$.extend(this, opts);
+
+// 		this.set_document_title = true;
+// 		this.buttons = {};
+// 		this.fields_dict = {};
+// 		this.views = {};
+
+// 		this.make();
+// 		let navbardata = JSON.parse(localStorage.getItem("navdata") || "[]");
+
+// 		// console.log(navbardata)
+// 		frappe.ui.pages[frappe.get_route_str()] = this;
+// 		// let route  = window.location.href
+// 		// alert("ok ok ")
+
+// 		// if (this.title !== "Workspace") {
+// 		make_header_nav(navbardata);
+// 		// }
+// 		// else{
+// 		// 	$('.header_sec').empty()
+// 		// }
+// 	}
+
+// 	make() {
+// 		this.wrapper = $(this.parent);
+// 		this.add_main_section();
+// 		this.setup_scroll_handler();
+// 		this.setup_sidebar_toggle();
+// 	}
+
+// 	setup_scroll_handler() {
+// 		let last_scroll = 0;
+// 		window.addEventListener(
+// 			"scroll",
+// 			frappe.utils.throttle(() => {
+// 				$(".page-head").toggleClass("drop-shadow", !!document.documentElement.scrollTop);
+// 				let current_scroll = document.documentElement.scrollTop;
+// 				if (current_scroll > 0 && last_scroll <= current_scroll) {
+// 					$(".page-head").css("top", "-15px");
+// 				} else {
+// 					$(".page-head").css("top", "var(--navbar-height)");
+// 				}
+// 				last_scroll = current_scroll;
+// 			}),
+// 			500
+// 		);
+// 	}
+
+// 	get_empty_state(title, message, primary_action) {
+// 		let $empty_state = $(`<div class="page-card-container">
+// 			<div class="page-card">
+// 				<div class="page-card-head">
+// 					<span class="indicator blue">
+// 						${title}</span>
+// 				</div>
+// 				<p>${message}</p>
+// 				<div>
+// 					<button class="btn btn-primary btn-sm">${primary_action}</button>
+// 				</div>
+// 			</div>
+// 		</div>`);
+
+// 		return $empty_state;
+// 	}
+
+// 	load_lib(callback) {
+// 		frappe.require(this.required_libs, callback);
+// 	}
+
+// 	// add_main_section() {
+// 	// 	$(frappe.render_template("page", {})).appendTo(this.wrapper);
+// 	// 	if (this.single_column) {
+// 	// 		// nesting under col-sm-12 for consistency
+// 	// 		this.add_view(
+// 	// 			"main",
+// 	// 			'<div class="row layout-main">\
+// 	// 				<div class="col-md-12 layout-main-section-wrapper">\
+// 	// 					<div class="layout-main-section"></div>\
+// 	// 					<div class="layout-footer hide"></div>\
+// 	// 				</div>\
+// 	// 			</div>'
+// 	// 		);
+// 	// 	} else {
+// 	// 		this.add_view(
+// 	// 			"main",
+// 	// 			`
+// 	// 			<div class="row layout-main">
+// 	// 				<div class="col-lg-2 layout-side-section"></div>
+// 	// 				<div class="col layout-main-section-wrapper">
+// 	// 					<div class="layout-main-section"></div>
+// 	// 					<div class="layout-footer hide"></div>
+// 	// 				</div>
+// 	// 			</div>
+// 	// 		`
+// 	// 		);
+// 	// 	}
+
+// 	// 	this.setup_page();
+// 	// }
+
+// 	add_main_section() {
+// 		$(frappe.render_template("page", {})).appendTo(this.wrapper);
+// 		if (this.single_column) {
+// 			// nesting under col-sm-12 for consistency
+// 			this.add_view(
+// 				"main",
+// 				`<div class="row layout-main">
+//     			<div class="col-md-12 layout-main-section-wrapper">
+//     				<div class="layout-main-section"></div>
+//     			</div>
+//     		</div>`
+// 			);
+// 		} else {
+// 			// alert("ok")
+// 			this.add_view(
+// 				"main",
+// 				`
+// 				<div class="row layout-main">
+				
+					
+       
+		
+//         <div class="col-lg-2 layout-side-section mt-5 hidden-xs"></div>
+					
+// 					<div class="col layout-main-section-wrapper">
+// 						<div class="layout-main-section" >
+						
+// 						</div>
+						
+
+//           </div>
+
+
+
+// 					<div class="btn-group-fab" role="group" aria-label="FAB Menu">
+					
+// 				  </div>
+// 								  </div>
+
+// 			`
+// 			);
+// 		}
+
+// 		this.setup_page();
+// 	}
+
+// 	setup_page() {
+// 		this.$title_area = this.wrapper.find(".title-area");
+
+// 		this.$sub_title_area = this.wrapper.find("h6");
+
+// 		if (this.title) this.set_title(this.title);
+
+// 		if (this.icon) this.get_main_icon(this.icon);
+
+// 		this.body = this.main = this.wrapper.find(".layout-main-section");
+// 		this.container = this.wrapper.find(".page-body");
+// 		this.sidebar = this.wrapper.find(".layout-side-section");
+// 		this.footer = this.wrapper.find(".layout-footer");
+// 		this.indicator = this.wrapper.find(".indicator-pill");
+
+// 		this.page_actions = this.wrapper.find(".page-actions");
+
+// 		this.btn_primary = this.page_actions.find(".primary-action");
+// 		this.btn_secondary = this.page_actions.find(".btn-secondary");
+
+// 		this.menu = this.page_actions.find(".menu-btn-group .dropdown-menu");
+// 		this.menu_btn_group = this.page_actions.find(".menu-btn-group");
+
+// 		this.actions = this.page_actions.find(".actions-btn-group .dropdown-menu");
+// 		this.actions_btn_group = this.page_actions.find(".actions-btn-group");
+
+// 		this.standard_actions = this.page_actions.find(".standard-actions");
+// 		this.custom_actions = this.page_actions.find(".custom-actions");
+
+// 		this.page_form = $('<div class="page-form row hide"></div>').prependTo(this.main);
+// 		this.inner_toolbar = this.custom_actions;
+// 		this.icon_group = this.page_actions.find(".page-icon-group");
+
+// 		if (this.make_page) {
+// 			this.make_page();
+// 		}
+
+// 		this.card_layout && this.main.addClass("frappe-card");
+
+// 		// keyboard shortcuts
+// 		let menu_btn = this.menu_btn_group.find("button");
+// 		menu_btn.attr("title", __("Menu")).tooltip({ delay: { show: 600, hide: 100 } });
+// 		frappe.ui.keys
+// 			.get_shortcut_group(this.page_actions[0])
+// 			.add(menu_btn, menu_btn.find(".menu-btn-group-label"));
+
+// 		let action_btn = this.actions_btn_group.find("button");
+// 		frappe.ui.keys
+// 			.get_shortcut_group(this.page_actions[0])
+// 			.add(action_btn, action_btn.find(".actions-btn-group-label"));
+// 	}
+
+// 	setup_sidebar_toggle() {
+// 		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
+// 		let sidebar_wrapper = this.wrapper.find(".layout-side-section");
+// 		if (this.disable_sidebar_toggle || !sidebar_wrapper.length) {
+// 			sidebar_toggle.remove();
+// 		} else {
+// 			sidebar_toggle.attr("title", __("Toggle Sidebar")).tooltip({
+// 				delay: { show: 600, hide: 100 },
+// 				trigger: "hover",
+// 			});
+// 			sidebar_toggle.click(() => {
+// 				if (frappe.utils.is_xs() || frappe.utils.is_sm()) {
+// 					this.setup_overlay_sidebar();
+// 				} else {
+// 					sidebar_wrapper.toggle();
+// 				}
+// 				$(document.body).trigger("toggleSidebar");
+// 				this.update_sidebar_icon();
+// 			});
+// 		}
+// 	}
+
+// 	setup_overlay_sidebar() {
+// 		let overlay_sidebar = this.sidebar.find(".overlay-sidebar").addClass("opened");
+// 		$('<div class="close-sidebar">').hide().appendTo(this.sidebar).fadeIn();
+// 		let scroll_container = $("html").css("overflow-y", "hidden");
+
+// 		this.sidebar.find(".close-sidebar").on("click", (e) => close_sidebar(e));
+// 		this.sidebar.on("click", "button:not(.dropdown-toggle)", (e) => close_sidebar(e));
+
+// 		let close_sidebar = () => {
+// 			scroll_container.css("overflow-y", "");
+// 			this.sidebar.find("div.close-sidebar").fadeOut(() => {
+// 				overlay_sidebar
+// 					.removeClass("opened")
+// 					.find(".dropdown-toggle")
+// 					.removeClass("text-muted");
+// 			});
+// 		};
+// 	}
+
+// 	update_sidebar_icon() {
+// 		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
+// 		let sidebar_toggle_icon = sidebar_toggle.find(".sidebar-toggle-icon");
+// 		let sidebar_wrapper = this.wrapper.find(".layout-side-section");
+// 		let is_sidebar_visible = $(sidebar_wrapper).is(":visible");
+// 		sidebar_toggle_icon.html(
+// 			frappe.utils.icon(is_sidebar_visible ? "sidebar-collapse" : "sidebar-expand", "md")
+// 		);
+// 	}
+
+// 	set_indicator(label, color) {
+// 		this.clear_indicator().removeClass("hide").html(`<span>${label}</span>`).addClass(color);
+// 	}
+
+// 	add_action_icon(icon, click, css_class = "", tooltip_label) {
+// 		const button = $(`
+// 			<button class="text-muted btn btn-default ${css_class} icon-btn">
+// 				${frappe.utils.icon(icon)}
+// 			</button>
+// 		`);
+
+// 		button.appendTo(this.icon_group.removeClass("hide"));
+// 		button.click(click);
+// 		button
+// 			.attr("title", __(tooltip_label || frappe.unscrub(icon)))
+// 			.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
+
+// 		return button;
+// 	}
+
+// 	clear_indicator() {
+// 		return this.indicator.removeClass().addClass("indicator-pill whitespace-nowrap hide");
+// 	}
+
+// 	get_icon_label(icon, label) {
+// 		let icon_name = icon;
+// 		let size = "xs";
+// 		if (typeof icon === "object") {
+// 			icon_name = icon.icon;
+// 			size = icon.size || "xs";
+// 		}
+// 		return `${icon ? frappe.utils.icon(icon_name, size) : ""} <span class="hidden-xs"> ${__(
+// 			label
+// 		)} </span>`;
+// 	}
+
+// 	set_action(btn, opts) {
+// 		let me = this;
+// 		if (opts.icon) {
+// 			opts.label = this.get_icon_label(opts.icon, opts.label);
+// 		}
+
+// 		this.clear_action_of(btn);
+
+// 		btn.removeClass("hide")
+// 			.prop("disabled", false)
+// 			.html(opts.label)
+// 			.on("click", function () {
+// 				let response = opts.click.apply(this, [btn]);
+// 				me.btn_disable_enable(btn, response);
+// 			});
+
+// 		if (opts.working_label) {
+// 			btn.attr("data-working-label", opts.working_label);
+// 		}
+
+// 		// alt shortcuts
+// 		let text_span = btn.find("span");
+// 		frappe.ui.keys.get_shortcut_group(this).add(btn, text_span.length ? text_span : btn);
+// 	}
+
+// 	set_primary_action(label, click, icon, working_label) {
+// 		this.set_action(this.btn_primary, {
+// 			label: label,
+// 			click: click,
+// 			icon: icon,
+// 			working_label: working_label,
+// 		});
+// 		return this.btn_primary;
+// 	}
+
+// 	set_secondary_action(label, click, icon, working_label) {
+// 		this.set_action(this.btn_secondary, {
+// 			label: label,
+// 			click: click,
+// 			icon: icon,
+// 			working_label: working_label,
+// 		});
+
+// 		return this.btn_secondary;
+// 	}
+
+// 	clear_action_of(btn) {
+// 		btn.addClass("hide").unbind("click").removeAttr("data-working-label");
+// 	}
+
+// 	clear_primary_action() {
+// 		this.clear_action_of(this.btn_primary);
+// 	}
+
+// 	clear_secondary_action() {
+// 		this.clear_action_of(this.btn_secondary);
+// 	}
+
+// 	clear_actions() {
+// 		this.clear_primary_action();
+// 		this.clear_secondary_action();
+// 	}
+
+// 	clear_custom_actions() {
+// 		this.custom_actions.addClass("hide").empty();
+// 	}
+
+// 	clear_icons() {
+// 		this.icon_group.addClass("hide").empty();
+// 	}
+
+// 	//--- Menu --//
+
+// 	add_menu_item(label, click, standard, shortcut) {
+// 		return this.add_dropdown_item({
+// 			label,
+// 			click,
+// 			standard,
+// 			parent: this.menu,
+// 			shortcut,
+// 		});
+// 	}
+
+// 	add_custom_menu_item(parent, label, click, standard, shortcut, icon = null) {
+// 		return this.add_dropdown_item({
+// 			label,
+// 			click,
+// 			standard,
+// 			parent: parent,
+// 			shortcut,
+// 			icon,
+// 		});
+// 	}
+
+// 	clear_menu() {
+// 		this.clear_btn_group(this.menu);
+// 	}
+
+// 	show_menu() {
+// 		this.menu_btn_group.removeClass("hide");
+// 	}
+
+// 	hide_menu() {
+// 		this.menu_btn_group.addClass("hide");
+// 	}
+
+// 	show_icon_group() {
+// 		this.icon_group.removeClass("hide");
+// 	}
+
+// 	hide_icon_group() {
+// 		this.icon_group.addClass("hide");
+// 	}
+
+// 	//--- Actions Menu--//
+
+// 	show_actions_menu() {
+// 		this.actions_btn_group.removeClass("hide");
+// 	}
+
+// 	hide_actions_menu() {
+// 		this.actions_btn_group.addClass("hide");
+// 	}
+
+// 	add_action_item(label, click, standard) {
+// 		return this.add_dropdown_item({
+// 			label,
+// 			click,
+// 			standard,
+// 			parent: this.actions,
+// 		});
+// 	}
+
+// 	add_actions_menu_item(label, click, standard, shortcut) {
+// 		return this.add_dropdown_item({
+// 			label,
+// 			click,
+// 			standard,
+// 			shortcut,
+// 			parent: this.actions,
+// 			show_parent: false,
+// 		});
+// 	}
+
+// 	clear_actions_menu() {
+// 		this.clear_btn_group(this.actions);
+// 	}
+
+// 	//-- Generic --//
+
+// 	/*
+// 	 * Add label to given drop down menu. If label, is already contained in the drop
+// 	 * down menu, it will be ignored.
+// 	 * @param {string} label - Text for the drop down menu
+// 	 * @param {function} click - function to be called when `label` is clicked
+// 	 * @param {Boolean} standard
+// 	 * @param {object} parent - DOM object representing the parent of the drop down item lists
+// 	 * @param {string} shortcut - Keyboard shortcut associated with the element
+// 	 * @param {Boolean} show_parent - Whether to show the dropdown button if dropdown item is added
+// 	 */
+// 	add_dropdown_item({
+// 		label,
+// 		click,
+// 		standard,
+// 		parent,
+// 		shortcut,
+// 		show_parent = true,
+// 		icon = null,
+// 	}) {
+// 		if (show_parent) {
+// 			parent.parent().removeClass("hide");
+// 		}
+
+// 		let $link = this.is_in_group_button_dropdown(parent, "li > a.grey-link > span", label);
+// 		if ($link) return $link;
+
+// 		let $li;
+// 		let $icon = ``;
+
+// 		if (icon) {
+// 			$icon = `<span class="menu-item-icon">${frappe.utils.icon(icon)}</span>`;
+// 		}
+
+// 		if (shortcut) {
+// 			let shortcut_obj = this.prepare_shortcut_obj(shortcut, click, label);
+// 			$li = $(`
+// 				<li>
+// 					<a class="grey-link dropdown-item" href="#" onClick="return false;">
+// 						${$icon}
+// 						<span class="menu-item-label">${label}</span>
+// 						<kbd class="pull-right">
+// 							<span>${shortcut_obj.shortcut_label}</span>
+// 						</kbd>
+// 					</a>
+// 				</li>
+// 			`);
+// 			frappe.ui.keys.add_shortcut(shortcut_obj);
+// 		} else {
+// 			$li = $(`
+// 				<li>
+// 					<a class="grey-link dropdown-item" href="#" onClick="return false;">
+// 						${$icon}
+// 						<span class="menu-item-label">${label}</span>
+// 					</a>
+// 				</li>
+// 			`);
+// 		}
+
+// 		$link = $li.find("a").on("click", click);
+
+// 		if (standard) {
+// 			$li.appendTo(parent);
+// 		} else {
+// 			this.divider = parent.find(".dropdown-divider");
+// 			if (!this.divider.length) {
+// 				this.divider = $('<li class="dropdown-divider user-action"></li>').prependTo(
+// 					parent
+// 				);
+// 			}
+// 			$li.addClass("user-action").insertBefore(this.divider);
+// 		}
+
+// 		// alt shortcut
+// 		frappe.ui.keys
+// 			.get_shortcut_group(parent.get(0))
+// 			.add($link, $link.find(".menu-item-label"));
+
+// 		return $link;
+// 	}
+
+// 	prepare_shortcut_obj(shortcut, click, label) {
+// 		let shortcut_obj;
+// 		// convert to object, if shortcut string passed
+// 		if (typeof shortcut === "string") {
+// 			shortcut_obj = { shortcut };
+// 		} else {
+// 			shortcut_obj = shortcut;
+// 		}
+// 		// label
+// 		if (frappe.utils.is_mac()) {
+// 			shortcut_obj.shortcut_label = shortcut_obj.shortcut.replace("Ctrl", "⌘");
+// 		} else {
+// 			shortcut_obj.shortcut_label = shortcut_obj.shortcut;
+// 		}
+// 		// actual shortcut string
+// 		shortcut_obj.shortcut = shortcut_obj.shortcut.toLowerCase();
+// 		// action is button click
+// 		if (!shortcut_obj.action) {
+// 			shortcut_obj.action = click;
+// 		}
+// 		// shortcut description can be button label
+// 		if (!shortcut_obj.description) {
+// 			shortcut_obj.description = label;
+// 		}
+// 		// page
+// 		shortcut_obj.page = this;
+// 		return shortcut_obj;
+// 	}
+
+// 	/*
+// 	 * Check if there already exists a button with a specified label in a specified button group
+// 	 * @param {object} parent - This should be the `ul` of the button group.
+// 	 * @param {string} selector - CSS Selector of the button to be searched for. By default, it is `li`.
+// 	 * @param {string} label - Label of the button
+// 	 */
+// 	is_in_group_button_dropdown(parent, selector, label) {
+// 		if (!selector) selector = "li";
+
+// 		if (!label || !parent) return false;
+
+// 		const item_selector = `${selector}[data-label="${encodeURIComponent(label)}"]`;
+
+// 		const existing_items = $(parent).find(item_selector);
+// 		return existing_items?.length > 0 && existing_items;
+// 	}
+
+// 	clear_btn_group(parent) {
+// 		parent.empty();
+// 		parent.parent().addClass("hide");
+// 	}
+
+// 	add_divider() {
+// 		return $('<li class="dropdown-divider"></li>').appendTo(this.menu);
+// 	}
+
+// 	get_or_add_inner_group_button(label) {
+// 		var $group = this.inner_toolbar.find(
+// 			`.inner-group-button[data-label="${encodeURIComponent(label)}"]`
+// 		);
+// 		if (!$group.length) {
+// 			$group = $(
+// 				`<div class="inner-group-button" data-label="${encodeURIComponent(label)}">
+// 					<button type="button" class="btn btn-default ellipsis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+// 						${label}
+// 						${frappe.utils.icon("select", "xs")}
+// 					</button>
+// 					<div role="menu" class="dropdown-menu"></div>
+// 				</div>`
+// 			).appendTo(this.inner_toolbar);
+// 		}
+// 		return $group;
+// 	}
+
+// 	get_inner_group_button(label) {
+// 		return this.inner_toolbar.find(
+// 			`.inner-group-button[data-label="${encodeURIComponent(label)}"]`
+// 		);
+// 	}
+
+// 	set_inner_btn_group_as_primary(label) {
+// 		this.get_or_add_inner_group_button(label)
+// 			.find("button")
+// 			.removeClass("btn-default")
+// 			.addClass("btn-primary");
+// 	}
+
+// 	btn_disable_enable(btn, response) {
+// 		if (response && response.then) {
+// 			btn.prop("disabled", true);
+// 			response.then(() => {
+// 				btn.prop("disabled", false);
+// 			});
+// 		} else if (response && response.always) {
+// 			btn.prop("disabled", true);
+// 			response.always(() => {
+// 				btn.prop("disabled", false);
+// 			});
+// 		}
+// 	}
+
+// 	/*
+// 	 * Add button to button group. If there exists another button with the same label,
+// 	 * `add_inner_button` will not add the new button to the button group even if the callback
+// 	 * function is different.
+// 	 *
+// 	 * @param {string} label - Label of the button to be added to the group
+// 	 * @param {object} action - function to be called when button is clicked
+// 	 * @param {string} group - Label of the group button
+// 	 */
+// 	add_inner_button(label, action, group, type = "default") {
+// 		var me = this;
+// 		let _action = function () {
+// 			let btn = $(this);
+// 			let response = action();
+// 			me.btn_disable_enable(btn, response);
+// 		};
+// 		if (group) {
+// 			var $group = this.get_or_add_inner_group_button(group);
+// 			$(this.inner_toolbar).removeClass("hide");
+
+// 			if (!this.is_in_group_button_dropdown($group.find(".dropdown-menu"), "a", label)) {
+// 				return $(
+// 					`<a class="dropdown-item" href="#" onclick="return false;" data-label="${encodeURIComponent(
+// 						label
+// 					)}">${label}</a>`
+// 				)
+// 					.on("click", _action)
+// 					.appendTo($group.find(".dropdown-menu"));
+// 			}
+// 		} else {
+// 			let button = this.inner_toolbar.find(
+// 				`button[data-label="${encodeURIComponent(label)}"]`
+// 			);
+// 			if (button.length == 0) {
+// 				button = $(`<button data-label="${encodeURIComponent(
+// 					label
+// 				)}" class="btn btn-${type} ellipsis">
+// 					${__(label)}
+// 				</button>`);
+// 				button.on("click", _action);
+// 				button.appendTo(this.inner_toolbar.removeClass("hide"));
+// 			}
+// 			return button;
+// 		}
+// 	}
+
+// 	remove_inner_button(label, group) {
+// 		if (typeof label === "string") {
+// 			label = [label];
+// 		}
+// 		// translate
+// 		label = label.map((l) => __(l));
+
+// 		if (group) {
+// 			var $group = this.get_inner_group_button(__(group));
+// 			if ($group.length) {
+// 				$group.find(`.dropdown-item[data-label="${encodeURIComponent(label)}"]`).remove();
+// 			}
+// 			if ($group.find(".dropdown-item").length === 0) $group.remove();
+// 		} else {
+// 			this.inner_toolbar.find(`button[data-label="${encodeURIComponent(label)}"]`).remove();
+// 		}
+// 	}
+
+// 	change_inner_button_type(label, group, type) {
+// 		let btn;
+
+// 		if (group) {
+// 			var $group = this.get_inner_group_button(__(group));
+// 			if ($group.length) {
+// 				btn = $group.find(`.dropdown-item[data-label="${encodeURIComponent(label)}"]`);
+// 			}
+// 		} else {
+// 			btn = this.inner_toolbar.find(`button[data-label="${encodeURIComponent(label)}"]`);
+// 		}
+
+// 		if (btn) {
+// 			btn.removeClass().addClass(`btn btn-${type} ellipsis`);
+// 		}
+// 	}
+
+// 	add_inner_message(message) {
+// 		let $message = $(`<span class='inner-page-message text-muted small'>${message}</div>`);
+// 		this.inner_toolbar.find(".inner-page-message").remove();
+// 		this.inner_toolbar.removeClass("hide").prepend($message);
+
+// 		return $message;
+// 	}
+
+// 	clear_inner_toolbar() {
+// 		this.inner_toolbar.empty().addClass("hide");
+// 	}
+
+// 	//-- Sidebar --//
+
+// 	add_sidebar_item(label, action, insert_after, prepend) {
+// 		var parent = this.sidebar.find(".sidebar-menu.standard-actions");
+// 		var li = $("<li>");
+// 		var link = $("<a>").html(label).on("click", action).appendTo(li);
+
+// 		if (insert_after) {
+// 			li.insertAfter(parent.find(insert_after));
+// 		} else {
+// 			if (prepend) {
+// 				li.prependTo(parent);
+// 			} else {
+// 				li.appendTo(parent);
+// 			}
+// 		}
+// 		return link;
+// 	}
+
+// 	//---//
+
+// 	clear_user_actions() {
+// 		this.menu.find(".user-action").remove();
+// 	}
+
+// 	// page::title
+// 	get_title_area() {
+// 		return this.$title_area;
+// 	}
+
+// 	set_title(title, icon = null, strip = true, tab_title = "") {
+// 		if (!title) title = "";
+// 		if (strip) {
+// 			title = strip_html(title);
+// 		}
+// 		this.title = title;
+// 		frappe.utils.set_title(tab_title || title);
+// 		if (icon) {
+// 			title = `${frappe.utils.icon(icon)} ${title}`;
+// 		}
+// 		let title_wrapper = this.$title_area.find(".title-text");
+// 		title_wrapper.html(title);
+// 		title_wrapper.attr("title", this.title);
+// 	}
+
+// 	set_title_sub(txt) {
+// 		// strip icon
+// 		this.$sub_title_area.html(txt).toggleClass("hide", !!!txt);
+// 	}
+
+// 	get_main_icon(icon) {
+// 		return this.$title_area
+// 			.find(".title-icon")
+// 			.html('<i class="' + icon + ' fa-fw"></i> ')
+// 			.toggle(true);
+// 	}
+
+// 	add_help_button(txt) {
+// 		//
+// 	}
+
+// 	add_button(label, click, opts) {
+// 		if (!opts) opts = {};
+// 		let button = $(`<button
+// 			class="btn ${opts.btn_class || "btn-default"} ${opts.btn_size || "btn-sm"} ellipsis">
+// 				${opts.icon ? frappe.utils.icon(opts.icon) : ""}
+// 				${label}
+// 		</button>`);
+// 		// Add actions as menu item in Mobile View (similar to "add_custom_button" in forms.js)
+// 		let menu_item = this.add_menu_item(label, click, false);
+// 		menu_item.parent().addClass("hidden-xl");
+
+// 		button.appendTo(this.custom_actions);
+// 		button.on("click", click);
+// 		this.custom_actions.removeClass("hide");
+
+// 		return button;
+// 	}
+
+// 	add_custom_button_group(label, icon, parent) {
+// 		let dropdown_label = `<span class="hidden-xs">
+// 			<span class="custom-btn-group-label">${__(label)}</span>
+// 			${frappe.utils.icon("select", "xs")}
+// 		</span>`;
+
+// 		if (icon) {
+// 			dropdown_label = `<span class="hidden-xs">
+// 				${frappe.utils.icon(icon)}
+// 				<span class="custom-btn-group-label">${__(label)}</span>
+// 				${frappe.utils.icon("select", "xs")}
+// 			</span>
+// 			<span class="visible-xs">
+// 				${frappe.utils.icon(icon)}
+// 			</span>`;
+// 		}
+
+// 		let custom_btn_group = $(`
+// 			<div class="custom-btn-group">
+// 				<button type="button" class="btn btn-default btn-sm ellipsis" data-toggle="dropdown" aria-expanded="false">
+// 					${dropdown_label}
+// 				</button>
+// 				<ul class="dropdown-menu" role="menu"></ul>
+// 			</div>
+// 		`);
+
+// 		if (!parent) parent = this.custom_actions;
+// 		parent.removeClass("hide").append(custom_btn_group);
+
+// 		return custom_btn_group.find(".dropdown-menu");
+// 	}
+
+// 	add_dropdown_button(parent, label, click, icon) {
+// 		frappe.ui.toolbar.add_dropdown_button(parent, label, click, icon);
+// 	}
+
+// 	// page::form
+// 	add_label(label) {
+// 		this.show_form();
+// 		return $("<label class='col-md-1 page-only-label'>" + label + " </label>").appendTo(
+// 			this.page_form
+// 		);
+// 	}
+// 	add_select(label, options) {
+// 		var field = this.add_field({ label: label, fieldtype: "Select" });
+// 		return field.$wrapper.find("select").empty().add_options(options);
+// 	}
+// 	add_data(label) {
+// 		var field = this.add_field({ label: label, fieldtype: "Data" });
+// 		return field.$wrapper.find("input").attr("placeholder", label);
+// 	}
+// 	add_date(label, date) {
+// 		var field = this.add_field({
+// 			label: label,
+// 			fieldtype: "Date",
+// 			default: date,
+// 		});
+// 		return field.$wrapper.find("input").attr("placeholder", label);
+// 	}
+// 	add_check(label) {
+// 		return $("<div class='checkbox'><label><input type='checkbox'>" + label + "</label></div>")
+// 			.appendTo(this.page_form)
+// 			.find("input");
+// 	}
+// 	add_break() {
+// 		// add further fields in the next line
+// 		this.page_form.append('<div class="clearfix invisible-xs"></div>');
+// 	}
+// 	add_field(df, parent) {
+// 		this.show_form();
+
+// 		if (!df.placeholder) {
+// 			df.placeholder = df.label;
+// 		}
+
+// 		df.input_class = "input-xs";
+
+// 		var f = frappe.ui.form.make_control({
+// 			df: df,
+// 			parent: parent || this.page_form,
+// 			only_input: df.fieldtype == "Check" ? false : true,
+// 		});
+// 		f.refresh();
+// 		$(f.wrapper)
+// 			.addClass("col-md-2")
+// 			.attr("title", __(df.label))
+// 			.tooltip({
+// 				delay: { show: 600, hide: 100 },
+// 				trigger: "hover",
+// 			});
+
+// 		// html fields in toolbar are only for display
+// 		if (df.fieldtype == "HTML") {
+// 			return;
+// 		}
+
+// 		// hidden fields dont have $input
+// 		if (!f.$input) f.make_input();
+
+// 		f.$input.attr("placeholder", __(df.label));
+
+// 		if (df.fieldtype === "Check") {
+// 			$(f.wrapper).find(":first-child").removeClass("col-md-offset-4 col-md-8");
+// 		}
+
+// 		if (df.fieldtype == "Button") {
+// 			$(f.wrapper).find(".page-control-label").html("&nbsp;");
+// 			f.$input.addClass("btn-xs").css({ width: "100%", "margin-top": "-1px" });
+// 		}
+
+// 		if (df["default"]) f.set_input(df["default"]);
+// 		this.fields_dict[df.fieldname || df.label] = f;
+// 		return f;
+// 	}
+// 	clear_fields() {
+// 		this.page_form.empty();
+// 	}
+// 	show_form() {
+// 		this.page_form.removeClass("hide");
+// 	}
+// 	hide_form() {
+// 		this.page_form.addClass("hide");
+// 	}
+// 	get_form_values() {
+// 		var values = {};
+// 		for (let fieldname in this.fields_dict) {
+// 			let field = this.fields_dict[fieldname];
+// 			values[fieldname] = field.get_value();
+// 		}
+// 		return values;
+// 	}
+// 	add_view(name, html) {
+// 		let element = html;
+// 		if (typeof html === "string") {
+// 			element = $(html);
+// 		}
+// 		this.views[name] = element.appendTo($(this.wrapper).find(".page-content"));
+// 		if (!this.current_view) {
+// 			this.current_view = this.views[name];
+// 		} else {
+// 			this.views[name].toggle(false);
+// 		}
+// 		return this.views[name];
+// 	}
+// 	set_view(name) {
+// 		if (this.current_view_name === name) return;
+// 		this.current_view && this.current_view.toggle(false);
+// 		this.current_view = this.views[name];
+
+// 		this.previous_view_name = this.current_view_name;
+// 		this.current_view_name = name;
+
+// 		this.views[name].toggle(true);
+
+// 		this.wrapper.trigger("view-change");
+// 	}
+// };
+
+// // Sidebar: fetch modules and render persistent sidebar
+// function make_persistent_sidebar() {
+// 	// fetch same data source as app_page (via underlying API)
+// 	frappe.call({
+// 		method: "aqooncloud_design.api.template.get_workspace_sidebar_items",
+// 		callback: function (r) {
+// 			if (!r || !r.message || !r.message.pages) return;
+// 			render_sidebar(r.message.pages || []);
+// 			addSidebarCollapseToggle();
+
+// 			updateSidebarActiveState();
+// 		},
+// 		error: function (err) {
+// 			console.error("Error loading sidebar:", err);
+// 		},
+// 	});
+// }
+
+// function addSidebarCollapseToggle() {
+// 	const toggleBtn = $("#rasiin-left-sidebar .sidebar-collapse-toggle");
+
+// 	if (!toggleBtn.length) return; // If not found, do nothing
+
+// 	toggleBtn.on("click", function () {
+// 		$("body").toggleClass("rasiin-sidebar-collapsed");
+// 		// Update toggle icon
+// 		const icon = toggleBtn.find("i");
+// 		if ($("body").hasClass("rasiin-sidebar-collapsed")) {
+// 			icon.removeClass("fa-chevron-left").addClass("fa-chevron-right");
+// 			toggleBtn.attr("title", "Expand Sidebar");
+// 		} else {
+// 			icon.removeClass("fa-chevron-right").addClass("fa-chevron-left");
+// 			toggleBtn.attr("title", "Collapse Sidebar");
+// 		}
+
+// 		// Trigger resize event to adjust other elements
+// 		setTimeout(() => {
+// 			window.dispatchEvent(new Event("resize"));
+// 			manageNavOverflow(); // Recalculate nav overflow
+// 		}, 300);
+// 	});
+// }
+
+// function render_sidebar(pages) {
+// 	const body = $(document.body);
+
+// 	// ensure single instance (fixed left sidebar spanning full height)
+// 	let leftBar = $("#rasiin-left-sidebar");
+// 	if (!leftBar.length) {
+// 		leftBar = $(`<aside id=\"rasiin-left-sidebar\"></aside>`).prependTo(body);
+// 		body.addClass("rasiin-leftbar-enabled");
+// 	}
+
+// 	let items_html = pages
+// 		.map((p) => {
+// 			const iconHtml = p.image_icon
+// 				? `<img src="${p.image_icon}" alt="${p.label}"/>`
+// 				: p.icon
+// 				? `<i class="${p.icon}" style="font-size:16px;"></i>`
+// 				: `<i class="fa fa-cube" style="font-size:14px;"></i>`;
+// 			return `
+//         <li class="sidebar-item" data-home-name="${frappe.utils.escape_html(p.name)}">
+//           <a class="sidebar-link" href="#" onclick="return false;">
+//             <span class="sidebar-icon">${iconHtml}</span>
+//             <span class="sidebar-label">${frappe.utils.escape_html(p.label || p.name)}</span>
+//           </a>
+//         </li>`;
+// 		})
+// 		.join("");
+
+// 	const userAvatar = frappe.avatar(frappe.session.user, "avatar-medium");
+// 	// console.log("userAvatar is : ", userAvatar);
+// 	// console.log("frappe.boot.user.full_name : ", frappe.boot.user.full_name);
+// 	// console.log("frappe.boot.user.first_name : ", frappe.boot.user.first_name);
+// 	// console.log("frappe.boot.user : ", frappe.boot.user);
+// 	// console.log("frappe.boot.user.roles : ", frappe.boot.user.roles);
+// 	const userFullName =
+// 		frappe.boot.user.full_name || frappe.boot.user.first_name || frappe.session.user;
+
+// 	const wrapper_html = `
+//       <div class="desk-sidebar sidebar-menu">
+//         <div class="sidebar-user" style="display:flex;align-items:center;gap:12px;">
+//           <span class="sidebar-user-avatar">${userAvatar}</span>
+//           <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
+//             <span class="sidebar-user-name" style="font-weight:600;">${frappe.utils.escape_html(
+// 				userFullName
+// 			)}</span>
+//           </div>
+//           <div class="sidebar-user-menu" id="rasiin-sidebar-user-menu">
+//             <div class="item" id="rasiin-user-settings">
+//               <i class="fa fa-cog fa-fw" style="margin-right:8px;"></i>${__("My Settings")}
+//             </div>
+//             <div class="item" id="rasiin-user-reload">
+//               <i class="fa fa-refresh fa-fw" style="margin-right:8px;"></i>${__("Reload")}
+//             </div>
+//           </div>
+//         </div>
+
+//         <div class="sidebar-header">
+//           <button class="sidebar-collapse-toggle" title="Collapse Sidebar">
+//             <i class="fa fa-chevron-left"></i>
+//           </button>
+//           <h3 class="sidebar-title"></h3>
+//         </div>
+
+//         <div class="sidebar-modules">
+//           <ul>
+//             ${items_html}
+//           </ul>
+//         </div>
+
+//         <div class="sidebar-footer">
+//           <button class="btn btn-sm" id="rasiin-sidebar-logout">
+//             <i class="fa fa-sign-out fa-fw" style="margin-right:6px;"></i>${__("Logout")}
+//           </button>
+//         </div>
+//       </div>`;
+
+// 	leftBar.empty().append(wrapper_html);
+
+// 	// click handling similar to home page tiles
+// 	leftBar.find(".sidebar-item").on("click", function () {
+// 		const homeName = $(this).data("home-name");
+// 		if (!homeName) return;
+
+// 		// ✅ ADD THESE TWO LINES FOR IMMEDIATE FEEDBACK
+// 		$("#rasiin-left-sidebar .sidebar-item").removeClass("active");
+// 		$(this).addClass("active");
+
+// 		// Store the selected workspace name
+// 		localStorage.setItem("rasiin_active_workspace", homeName);
+
+// 		frappe.db.get_doc("Home Page", `${homeName}`).then((doc) => {
+// 			let navbardata = doc.home_shortcut || [];
+// 			localStorage.removeItem("navdata");
+// 			localStorage.setItem("navdata", JSON.stringify(navbardata));
+// 			make_header_nav(navbardata);
+
+// 			if (doc.home_shortcut && doc.home_shortcut.length) {
+// 				const first = doc.home_shortcut[0];
+// 				if (first.type == "Report") {
+// 					frappe.set_route(`/app/query-report/${first.link_to}`);
+// 				} else if (first.type == "Insights Dashboard") {
+// 					frappe.set_route(`/insights/public/dashboard/${first.dashboard_link}`);
+// 				} else {
+// 					frappe.set_route(`/app/${first.link_to.replace(/\s/g, "-").toLowerCase()}`);
+// 				}
+// 			}
+
+// 			$(".header_sec").show();
+// 			$(".page-head").show();
+
+// 			//!---- No longer need
+// 			// active state
+// 			// leftBar.find(".sidebar-item").removeClass("active");
+// 			// $(this).addClass("active");
+// 		});
+// 	});
+
+// 	// logout action
+// 	leftBar.find("#rasiin-sidebar-logout").on("click", function (e) {
+// 		e.preventDefault();
+// 		frappe.confirm(
+// 			__("Are you sure you want to logout?"),
+// 			() => frappe.app.logout(),
+// 			() => {}
+// 		);
+// 	});
+
+// 	// user menu actions
+// 	const userBlock = leftBar.find(".sidebar-user");
+// 	const userMenu = leftBar.find("#rasiin-sidebar-user-menu");
+// 	userBlock.on("click", function (e) {
+// 		e.stopPropagation();
+// 		userMenu.toggle();
+// 	});
+// 	$(document).on("click", function () {
+// 		userMenu.hide();
+// 	});
+// 	leftBar.find("#rasiin-user-settings").on("click", function (e) {
+// 		e.stopPropagation();
+// 		frappe.ui.toolbar.route_to_user();
+// 		userMenu.hide();
+// 	});
+// 	leftBar.find("#rasiin-user-reload").on("click", function (e) {
+// 		e.stopPropagation();
+// 		frappe.ui.toolbar.clear_cache();
+// 		userMenu.hide();
+// 	});
+// }
+
+// function updateSidebarActiveState() {
+// 	try {
+// 		const activeWorkspace = localStorage.getItem("rasiin_active_workspace");
+
+// 		if (!activeWorkspace) {
+// 			return;
+// 		}
+
+// 		const sidebar = $("#rasiin-left-sidebar");
+
+// 		if (!sidebar.length) return;
+
+// 		sidebar.find(".sidebar-item").removeClass("active");
+
+// 		const selector = `.sidebar-item[data-home-name="${activeWorkspace}"]`;
+// 		const activeItem = sidebar.find(selector);
+
+// 		if (activeItem.length) {
+// 			activeItem.addClass("active");
+// 		} else {
+// 		}
+// 	} catch (e) {
+// 		// console.error("Failed to update sidebar active state:", e);
+// 	}
+// }
+
+// // Dynamically collapse overflowing nav items into a More dropdown
+// function manageNavOverflow() {
+// 	try {
+// 		const header = document.querySelector(".header.navbar");
+// 		if (!header) return;
+// 		const linksContainer = header.querySelector(".logo__navlinks");
+// 		if (!linksContainer) return;
+// 		const navLinks = Array.from(
+// 			linksContainer.querySelectorAll(".nav-item.nav-link, .dropdown.nav-item")
+// 		);
+// 		if (!navLinks.length) return;
+
+// 		// Remove existing dynamic More menu if present
+// 		let dynamicMore = linksContainer.querySelector(".nav-overflow-more");
+// 		if (dynamicMore) dynamicMore.remove();
+
+// 		// Reset visibility of all nav items
+// 		navLinks.forEach((el) => (el.style.display = ""));
+
+// 		// Create a More dropdown shell
+// 		const moreShell = document.createElement("div");
+// 		moreShell.className = "dropdown nav-item nav-overflow-more";
+// 		moreShell.innerHTML = `
+//       <a style="color:#fff" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${__(
+// 			"More"
+// 		)}</a>
+//       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+//     `;
+
+// 		// Primary rule: keep first 6 visible, overflow goes into More
+// 		const keepCount = 6;
+// 		const move = navLinks.slice(keepCount);
+// 		const keep = navLinks.slice(0, keepCount);
+// 		keep.forEach((el) => (el.style.display = ""));
+
+// 		if (move.length) {
+// 			linksContainer.appendChild(moreShell);
+// 			const menu = moreShell.querySelector(".dropdown-menu");
+// 			move.forEach((el) => {
+// 				const a =
+// 					el.querySelector("a.nav-link") || el.querySelector("a.dropdown-toggle") || el;
+// 				if (!a) return;
+// 				const label = a.textContent.trim();
+// 				const href = a.getAttribute("href");
+// 				const item = document.createElement("a");
+// 				item.className = "dropdown-item";
+// 				if (href) item.setAttribute("href", href);
+// 				item.textContent = label;
+// 				item.addEventListener("click", function () {
+// 					if (href && href.startsWith("/")) {
+// 						window.location.href = href;
+// 					}
+// 				});
+// 				menu.appendChild(item);
+// 				el.style.display = "none";
+// 			});
+// 		}
+// 	} catch (e) {
+// 		// noop
+// 	}
+// }
+// // let navbardata = [{"title" : "OPD Orders" , "type" : "DocType"}, {"title" : "IPD Order" , "type" : "DocType"} , {"title" : "Que" , "type" : "DocType"}]
+
+// frappe.Application = class extends frappe.Application {
+// 	constructor() {
+// 		super();
+// 		this.make();
+// 	}
+
+// 	make() {}
+// 	make_nav_bar() {
+// 		$('<div class = "header_sec"> </div>').appendTo("header");
+// 	}
+// };
+
+// frappe.views.Workspace = class customWorkspace {
+// 	constructor(wrapper) {
+// 		this.wrapper = $(wrapper);
+// 		this.page = wrapper.page;
+// 		this.title = "Home";
+// 		// this.prepare_container()
+// 	}
+
+// 	show() {
+// 		// Always keep navbar & sidebar visible
+// 		$(".page-head").show();
+// 		$(".header_sec").show();
+
+// 		let home_p = $(".page-container");
+// 		home_p.empty();
+
+// 		// Build persistent sidebar and header immediately
+// 		make_persistent_sidebar();
+
+// 		// Get initial navdata or use empty array
+// 		let navbardata = JSON.parse(localStorage.getItem("navdata") || "[]");
+// 		make_header_nav(navbardata);
+
+// 		// 🔹 Auto-select first module in sidebar after a short delay
+// 		this.autoSelectFirstModule();
+
+// 		const placeholder = `
+//       <div>
+//       </div>
+//     `;
+
+// 		home_p.html(placeholder);
+// 		console.log("Workspace placeholder rendered.");
+// 	}
+
+// 	// ✅ --- Simplified and Corrected `autoSelectFirstModule` Function
+// 	autoSelectFirstModule() {
+// 		// Wait for sidebar to be rendered
+// 		setTimeout(() => {
+// 			const sidebar = $("#rasiin-left-sidebar");
+// 			if (!sidebar.length) {
+// 				console.log("Sidebar not found, retrying...");
+// 				setTimeout(() => this.autoSelectFirstModule(), 500);
+// 				return;
+// 			}
+
+// 			const firstModule = sidebar.find(".sidebar-item").first();
+
+// 			if (firstModule.length) {
+// 				const homeName = firstModule.data("home-name");
+
+// 				if (homeName) {
+// 					console.log("Auto-selecting first module:", homeName);
+
+// 					// Step 1: Set the active workspace in localStorage. This is the most important part.
+// 					localStorage.setItem("rasiin_active_workspace", homeName);
+
+// 					// Step 2: Load the module's data.
+// 					frappe.db
+// 						.get_doc("Home Page", homeName)
+// 						.then((doc) => {
+// 							let navbardata = doc.home_shortcut || [];
+// 							localStorage.setItem("navdata", JSON.stringify(navbardata));
+
+// 							// Step 3: Rebuild the header. This will automatically call updateSidebarActiveState()
+// 							// and apply the 'active' class correctly based on what we stored in localStorage.
+// 							make_header_nav(navbardata);
+
+// 							// Step 4: Navigate to the first item in that module.
+// 							if (doc.home_shortcut && doc.home_shortcut.length > 0) {
+// 								const first = doc.home_shortcut[0];
+// 								if (first.type == "Report") {
+// 									frappe.set_route(`/app/query-report/${first.link_to}`);
+// 								} else if (first.type == "Insights Dashboard") {
+// 									frappe.set_route(
+// 										`/insights/public/dashboard/${first.dashboard_link}`
+// 									);
+// 								} else if (first.type == "Dashboard") {
+// 									frappe.set_route(
+// 										`/app/dashboard-view/${encodeURIComponent(first.link_to)}`
+// 									);
+// 								} else if (first.link_to) {
+// 									frappe.set_route(
+// 										`/app/${first.link_to.replace(/\s/g, "-").toLowerCase()}`
+// 									);
+// 								}
+// 							}
+// 						})
+// 						.catch((error) => {
+// 							console.error("Error loading first module:", error);
+// 						});
+// 				}
+// 			} else {
+// 				console.log("No sidebar modules found");
+// 			}
+// 		}, 1000);
+// 	}
+
+// 	prepare_container() {}
+// };
+
+
+
+
+const openMenuFirstPageIcon = document.querySelector("[data-first-page-open-nav]");
+const closeMenuFirstPageIcon = document.querySelector(".close_mennu");
+
+function openFirstPageNav() {
+	let navbardata = JSON.parse(localStorage.getItem("navdata") || JSON.parse([]));
+	//  console.log("navbardata", navbardata)
+
+	const menuFirstPage = document.querySelector("[data-menu-first-page]");
+	menuFirstPage.classList.add("open-menu");
+}
+
+function closeFirstPageNav() {
+	const menuFirstPage = document.querySelector("[data-menu-first-page]");
+	menuFirstPage.classList.remove("open-menu");
+}
+
+function userHasRole(roleName) {
+	let hasRole = frappe.boot.user.roles.includes(roleName);
+
+	console.log("hasRole : ", hasRole);
+
+	return hasRole;
+}
+
+/**
+ * Checks if the current user has notification permissions based on a server-side check.
+ * Caches the result in sessionStorage to avoid repeated API calls.
+ * @returns {Promise<boolean>} A promise that resolves to true or false.
+ */
+
+async function make_cust_nav_bar(navbardata) {
+	// alert("")
+	// console.log("navbardata", navbardata)
+	let navitems = ``;
+	let dropDownitems = ``;
+	let moredropDownitems = ``;
+	let reportGroups = {};
+
+	// desktop (links)
+	navbardata.forEach((el, index) => {
+		if (el.type == "DocType" && el.doc_view !== "List") {
+			if (index > 10) {
+				moredropDownitems += `<a class="dropdown-item "
+        data-link-to="${el.link_to}"
+         href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			} else {
+				navitems += `<a class="nav-link nav-item"
+        data-link-to="${el.link_to}"
+        href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			}
+		} else if (el.type == "Dashboard") {
+			if (index > 10) {
+				moredropDownitems += `<a class="dropdown-item"
+        data-link-to="${el.link_to}"
+        href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+			} else {
+				navitems += `<a class="nav-link nav-item"
+        data-link-to="${el.link_to}"
+        href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+			}
+		} else if (el.type == "DocType" && el.doc_view == "List") {
+			if (index > 10) {
+				moredropDownitems += `<a class="dropdown-item "
+        data-link-to="${el.link_to}"
+        href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			} else {
+				navitems += `<a class="nav-link nav-item"
+        data-link-to="${el.link_to}"
+        href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			}
+		} else if (el.type == "Page") {
+			if (index > 10) {
+				moredropDownitems += `<a class="dropdown-item "
+        data-link-to="${el.link_to}"
+        href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			} else {
+				navitems += `<a class="nav-link nav-item"
+        data-link-to="${el.link_to}"
+        href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+			}
+		} else if (el.type == "Insights Dashboard") {
+			if (index > 10) {
+				moredropDownitems += `<a class="dropdown-item "
+        data-link-to="${el.link_to}"
+        href="/insights/public/dashboard/${el.dashboard_link}" , target= "_blank">${el.label}</a>`;
+			} else {
+				navitems += `<a class="nav-link nav-item"
+        data-link-to="${el.link_to}"
+        href="/insights/public/dashboard/${el.dashboard_link}" target= "_blank">${el.label}</a>`;
+			}
+		} else if (el.type == "Report") {
+			// navitems += `<a class="nav-link nav-item" href="/app/${el.label
+			//   .replace(" ", "-")
+			//   .toLowerCase()}/view/report">${el.label}</a>`
+			if (el.group) {
+				if (!reportGroups[el.group]) {
+					reportGroups[el.group] = ``;
+					reportGroups[el.group] += `<a class="dropdown-item"
+          data-link-to="${el.link_to}"
+          href="/app/query-report/${el.link_to}">${el.label}</a>`;
+				} else {
+					reportGroups[el.group] += `<a class="dropdown-item"
+          data-link-to="${el.link_to}"
+          href="/app/query-report/${el.link_to}">${el.label}</a>`;
+				}
+			} else {
+				dropDownitems += `<a class="dropdown-item"
+        data-link-to="${el.link_to}"
+        href="/app/query-report/${el.link_to}">${el.label}</a>`;
+			}
+		}
+	});
+	let reportsMenu = ``;
+	for (var key in reportGroups) {
+		// Access the property value using data[key]
+		// console.log("Key: " + key);
+		reportsMenu += `
+        <div class="dropdown nav-item">
+        <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ${key}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         ${reportGroups[key]}
+         
+        </div>
+      </div>
+           `;
+	}
+
+	if (moredropDownitems) {
+		navitems += `
+			<div class="dropdown nav-item">
+	 <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	   More
+	 </a>
+	 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	  ${moredropDownitems}
+	  
+	 </div>
+   </div>
+			`;
+	}
+	if (reportsMenu) {
+		navitems += reportsMenu;
+	}
+	if (dropDownitems) {
+		navitems += `
+		 <div class="dropdown nav-item">
+  <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Reports
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   ${dropDownitems}
+   
+  </div>
+</div>
+		 `;
+	}
+
+	// mobile menu (links)
+	let mobile_links = "";
+	let report_links = "";
+	// Loop through navbardata
+	navbardata.forEach((el) => {
+		// Generate DocType links
+		if (el.type === "DocType") {
+			mobile_links += `
+      <a class="companies__title" onclick="closeFirstPageNav()"
+      data-link-to="${el.link_to}"
+      href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+		} else if (el.type == "Page") {
+			mobile_links += `<a class="companies__title" onclick="closeFirstPageNav()"
+      data-link-to="${el.link_to}"
+      href="/app/${el.link_to.replace(/\s/g, "-").toLowerCase()}">${el.label}</a>`;
+		} else if (el.type === "Dashboard") {
+			mobile_links += `<a class="companies__title" onclick="closeFirstPageNav()"
+      data-link-to="${el.link_to}"
+      href="/app/dashboard-view/${encodeURIComponent(el.link_to)}">${el.label}</a>`;
+		}
+
+		if (el.type === "Insights Dashboard") {
+			// window.location.href = `http://104.251.219.249/insights/dashboard`;
+			mobile_links += `
+      <a class="companies__title"
+      data-link-to="${el.link_to}"
+      href="/insights/public/dashboard/${el.dashboard_link}">${el.label}</a>`;
+
+			// frappe.set_route(
+			//   `/insights/public/dashboard/${doc.home_shortcut[0].dashboard_link}`
+			// )
+		}
+
+		// Collect Report links into report_links
+		if (el.type === "Report") {
+			report_links += `
+      <a class="dropdown-item" onclick="closeFirstPageNav()"
+      data-link-to="${el.link_to}"
+      href="/app/query-report/${el.link_to}">
+        ${el.label}
+      </a>`;
+		}
+	});
+
+	// Create a single dropdown for Reports
+	if (report_links) {
+		mobile_links += `
+    <div class="dropdown">
+      <a style="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Reports
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        ${report_links}
+      </div>
+    </div>`;
+	}
+
+	// Only show notification icon if the user has a role with the permission enabled.
+	// const canShowNotifications = await checkNotificationPermission(); // ✨ Await the result
+	const canShowNotifications = userHasRole("System Manager");
+	const notificationIconHTML = `
+    <div class="nav-item dropdown dropdown-notifications dropdown-mobile hidden">
+      <button
+        class="btn-reset nav-link notifications-icon"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span class="notifications-seen">
+          <span class="sr-only">${__("No new notifications")}</span>
+          <svg class="es-icon icon-sm" style="stroke:none;"><use href="#es-line-notifications"></use></svg>
+        </span>
+        <span class="notifications-unseen">
+          <span class="sr-only">${__("You have unseen notifications")}</span>
+          <svg class="es-icon icon-sm"><use href="#es-line-notifications-unseen"></use></svg>
+        </span>
+      </button>
+      <div class="dropdown-menu notifications-list dropdown-menu-right" role="menu">
+        <div class="notification-list-header">
+          <div class="header-items"></div>
+          <div class="header-actions"></div>
+        </div>
+        <div class="notification-list-body">
+          <div class="panel-notifications"></div>
+          <div class="panel-events"></div>
+          <div class="panel-changelog-feed"></div>
+        </div>
+      </div>
+    </div>
+  `;
+	console.log("canShowNotifications : ", canShowNotifications);
+	// console.log("notificationIconHTML : ", notificationIconHTML);
+	// console.log("frappe.boot.desk_settings : ", frappe.boot.desk_settings);
+	// console.log("frappe.boot : ", frappe.boot);
+
+	const SearchBarHtml = canShowNotifications
+		? `
+  
+  `
+		: "";
+	const chatIconHTML = `
+    <div class="nav-item dropdown dropdown-notifications dropdown-mobile chat-navbar-icon" title="${__(
+		"Show Chats"
+	)}">
+      ${frappe.utils.icon("small-message", "md")}
+      <span class="badge" id="chat-notification-count"></span>
+    </div>
+  `;
+
+	// ${chatIconHTML}
+
+	const currentUser = frappe.session.user || "";
+	const currentUserFullName = (frappe.boot && frappe.boot.user && frappe.boot.user.full_name) ? frappe.boot.user.full_name : currentUser;
+	const currentUserInitials = currentUserFullName.split(" ").map(n => n[0]).join("").substring(0,2).toUpperCase();
+	const userAvatarHtml = frappe.avatar ? frappe.avatar(currentUser, "avatar-small") : `<div class="rasiin-header-initials">${currentUserInitials}</div>`;
+
+	const adminProfileHTML = `
+	<div class="rasiin-admin-profile dropdown" id="rasiin-admin-profile-dropdown">
+	  <button class="rasiin-admin-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="${frappe.utils.escape_html(currentUserFullName)}">
+	    <span class="rasiin-admin-avatar">${userAvatarHtml}</span>
+	    <span class="rasiin-admin-name">${frappe.utils.escape_html(currentUserFullName.split(" ")[0])}</span>
+	    <i class="fa fa-chevron-down rasiin-admin-caret"></i>
+	  </button>
+	  <div class="dropdown-menu dropdown-menu-right rasiin-admin-menu" aria-labelledby="rasiin-admin-profile-dropdown">
+	    <div class="rasiin-admin-menu-header">
+	      <div class="rasiin-admin-menu-name">${frappe.utils.escape_html(currentUserFullName)}</div>
+	      <div class="rasiin-admin-menu-email">${frappe.utils.escape_html(currentUser)}</div>
+	    </div>
+	    <div class="dropdown-divider"></div>
+	    <button class="dropdown-item" onclick="frappe.ui.toolbar.route_to_user()">
+	      <i class="fa fa-cog fa-fw"></i> ${__("My Settings")}
+	    </button>
+	    <button class="dropdown-item" onclick="frappe.ui.toolbar.clear_cache()">
+	      <i class="fa fa-refresh fa-fw"></i> ${__("Reload")}
+	    </button>
+	    <div class="dropdown-divider"></div>
+	    <button class="dropdown-item rasiin-logout-item" onclick="frappe.confirm(__('Are you sure you want to logout?'), () => frappe.app.logout(), () => {})">
+	      <i class="fa fa-sign-out fa-fw"></i> ${__("Log out")}
+	    </button>
+	  </div>
+	</div>
+	`;
+
+	navbar = `
+    <div class="overlay" data-overlay-first-page></div>
+    <div class="overlay" data-overlay-first-page></div>
+    <div class="menu" data-menu-first-page>
+      <div class="profile__img__close__nav">
+      <div class="menu_profile__image__name"></div>
+      <div class="close__navbar__icon" data-first-page-close-nav>
+        <i class="fa fa-x"></i>
+      </div>
+      </div>
+    
+      <div class="menu__companies">
+      
+      <span class="close_mennu" onclick="closeFirstPageNav()">Close</span>
+   ${mobile_links}  
+      </div>
+
+      <div class="menu__profile">
+        <div class="dropdown">
+          <a style ="color:#fff" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          My Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">		  
+           <button class="dropdown-item" onclick="frappe.ui.toolbar.route_to_user()">My Settings</button>
+           <button class="dropdown-item" onclick="frappe.ui.toolbar.clear_cache()">Reload</button>
+           <div class="dropdown-divider"></div>
+           <button class="dropdown-item" onclick="frappe.app.logout()">Log out</button>
+         </div>  
+        </div>  
+      </div>
+    </div>
+    
+    <header class="header navbar">
+        <div class="logo__navlinks">
+            ${navitems}
+        </div>
+        
+        <div class="header-right-section">
+          ${SearchBarHtml}
+          <div class="profile__image__name mr-3" style="display:flex;align-items:center;gap:14px;">
+            ${notificationIconHTML}
+            ${adminProfileHTML}
+          </div>
+        </div>
+
+        <div class="open-navbarbtn" data-first-page-open-nav onclick="openFirstPageNav()">
+            <i class="fa fa-bars"></i>
+        </div>
+    </header>
+    `;
+
+	return navbar;
+}
+
+function fetch_and_update_counts(navbardata) {
+	console.log("fetch_and_update_counts is called with this navbardata : ", navbardata);
+	// Filter for shortcuts that actually have a stats_filter
+	const shortcuts_with_filters = navbardata.filter((s) => s.stats_filter);
+
+	if (shortcuts_with_filters.length === 0) {
+		// No need to make an API call if no filters are set
+		return;
+	}
+
+	frappe.call({
+		method: "aqooncloud_design.api.template.get_shortcut_counts",
+		args: {
+			// Pass the list of shortcuts as a JSON string
+			shortcuts: JSON.stringify(shortcuts_with_filters),
+		},
+		callback: (r) => {
+			console.log("get_shortcut_counts api result is : ", r);
+			if (r.message) {
+				const counts = r.message;
+				console.log("counts is : ", counts);
+				// Loop through the returned counts
+				for (const doctype in counts) {
+					const count = counts[doctype];
+					console.log("counts[doctype] is : ", count);
+					// Find the corresponding link in the navbar using the data attribute
+					const link = $(`.header.navbar a[data-link-to="${doctype}"]`);
+					console.log("link is : ", link);
+					if (link.length) {
+						// Append a count badge to the link
+						// First, remove any existing badge to prevent duplicates on re-render
+						link.find(".count-badge").remove();
+						link.append(` <span class="count-badge">${count}</span>`);
+					}
+				}
+			}
+		},
+		// error:
+	});
+}
+
+async function make_header_nav(data) {
+	let navhtml = await make_cust_nav_bar(data);
+
+	if (frappe.boot && frappe.boot.home_page !== "setup-wizard") {
+		let route = window.location.href;
+		// alert(window.location.href)
+		// if(route !== "http://localhost/app" &&  route !== "http://localhost/app/home" ){
+		// frappe.frappe_toolbar = new frappe.ui.toolbar.Toolbar();
+		// alert(frappe.session.user)
+		// console.log(frappe.boot)
+		// $(navhtml).prependTo($(".header_sec").empty())
+
+		// Clear the header section first, then prepend
+		$(".header_sec").empty();
+		$(navhtml).prependTo($(".header_sec"));
+
+		// Build persistent sidebar using same modules source as app_page
+		make_persistent_sidebar();
+
+		//
+		fetch_and_update_counts(data);
+
+		// Wait for DOM to be ready before setting up events
+		// Initialize centralized notification system for the header
+		if (frappe.boot.desk_settings.notifications && frappe.session.user !== "Guest") {
+			try {
+				new frappe.ui.Notifications();
+			} catch (e) {
+				/* noop */
+			}
+		}
+
+		// =================================================================
+		// START: MODIFIED CHAT INITIALIZATION BLOCK
+		// =================================================================
+		// console.log("frappe.Chat is : ", frappe.Chat);
+		// console.log(
+		//   "window.frappe_chat_instance is : ",
+		//   window.frappe_chat_instance
+		// );
+		if (frappe.Chat) {
+			try {
+				// If the chat instance doesn't exist, create it for the first time.
+				if (!window.frappe_chat_instance) {
+					window.frappe_chat_instance = new frappe.Chat();
+					// console.log("Frappe Chat Initialized Successfully.");
+				} else {
+					// If the instance already exists, it means the header was just
+					// re-rendered. We just need to re-attach the events to the new icon.
+					window.frappe_chat_instance.setup_events();
+					// console.log("Frappe Chat events re-attached to new header.");
+				}
+			} catch (e) {
+				console.error("Failed to initialize or re-bind Frappe Chat:", e);
+			}
+		}
+		// =================================================================
+		// END: MODIFIED CHAT INITIALIZATION BLOCK
+		// =================================================================
+
+		if (frappe.boot.desk_settings.search_bar) {
+			try {
+				let awesome_bar = new frappe.search.AwesomeBar();
+				awesome_bar.setup("#navbar-search");
+			} catch (e) {
+				/* noop */
+			}
+		}
+
+		// Manage nav overflow into a dynamic "More" dropdown
+		try {
+			manageNavOverflow();
+			window.addEventListener("resize", frappe.utils.throttle(manageNavOverflow, 200));
+		} catch (e) {
+			/* noop */
+		}
+
+		// $('.header_sec').empty('')
+		// $(navhtml).appendTo('.header_sec')
+		// let awesome_bar = new frappe.search.AwesomeBar();
+		//  awesome_bar.setup("#navbar-search");
+		// }
+	}
+}
+
+if (JSON.parse(localStorage.getItem("navdata")) === null) {
+	localStorage.setItem("navdata", JSON.stringify([]));
+}
+
+frappe.ui.Page = class Page {
+	constructor(opts) {
+		$.extend(this, opts);
+
+		this.set_document_title = true;
+		this.buttons = {};
+		this.fields_dict = {};
+		this.views = {};
+
+		this.make();
+		let navbardata = JSON.parse(localStorage.getItem("navdata") || "[]");
+
+		// console.log(navbardata)
+		frappe.ui.pages[frappe.get_route_str()] = this;
+		// let route  = window.location.href
+		// alert("ok ok ")
+
+		// if (this.title !== "Workspace") {
+		make_header_nav(navbardata);
+		// }
+		// else{
+		// 	$('.header_sec').empty()
+		// }
+	}
+
+	make() {
+		this.wrapper = $(this.parent);
+		this.add_main_section();
+		this.setup_scroll_handler();
+		this.setup_sidebar_toggle();
+	}
+
+	setup_scroll_handler() {
+		let last_scroll = 0;
+		window.addEventListener(
+			"scroll",
+			frappe.utils.throttle(() => {
+				$(".page-head").toggleClass("drop-shadow", !!document.documentElement.scrollTop);
+				let current_scroll = document.documentElement.scrollTop;
+				if (current_scroll > 0 && last_scroll <= current_scroll) {
+					$(".page-head").css("top", "-15px");
+				} else {
+					$(".page-head").css("top", "var(--navbar-height)");
+				}
+				last_scroll = current_scroll;
+			}),
+			500
+		);
+	}
+
+	get_empty_state(title, message, primary_action) {
+		let $empty_state = $(`<div class="page-card-container">
+			<div class="page-card">
+				<div class="page-card-head">
+					<span class="indicator blue">
+						${title}</span>
+				</div>
+				<p>${message}</p>
+				<div>
+					<button class="btn btn-primary btn-sm">${primary_action}</button>
+				</div>
+			</div>
+		</div>`);
+
+		return $empty_state;
+	}
+
+	load_lib(callback) {
+		frappe.require(this.required_libs, callback);
+	}
+
+	// add_main_section() {
+	// 	$(frappe.render_template("page", {})).appendTo(this.wrapper);
+	// 	if (this.single_column) {
+	// 		// nesting under col-sm-12 for consistency
+	// 		this.add_view(
+	// 			"main",
+	// 			'<div class="row layout-main">\
+	// 				<div class="col-md-12 layout-main-section-wrapper">\
+	// 					<div class="layout-main-section"></div>\
+	// 					<div class="layout-footer hide"></div>\
+	// 				</div>\
+	// 			</div>'
+	// 		);
+	// 	} else {
+	// 		this.add_view(
+	// 			"main",
+	// 			`
+	// 			<div class="row layout-main">
+	// 				<div class="col-lg-2 layout-side-section"></div>
+	// 				<div class="col layout-main-section-wrapper">
+	// 					<div class="layout-main-section"></div>
+	// 					<div class="layout-footer hide"></div>
+	// 				</div>
+	// 			</div>
+	// 		`
+	// 		);
+	// 	}
+
+	// 	this.setup_page();
+	// }
+
+	add_main_section() {
+		$(frappe.render_template("page", {})).appendTo(this.wrapper);
+		if (this.single_column) {
+			// nesting under col-sm-12 for consistency
+			this.add_view(
+				"main",
+				`<div class="row layout-main">
+    			<div class="col-md-12 layout-main-section-wrapper">
+    				<div class="layout-main-section"></div>
+    			</div>
+    		</div>`
+			);
+		} else {
+			// alert("ok")
+			this.add_view(
+				"main",
+				`
+				<div class="row layout-main">
+				
+					
+       
+		
+        <div class="col-lg-2 layout-side-section mt-5 hidden-xs"></div>
+					
+					<div class="col layout-main-section-wrapper">
+						<div class="layout-main-section" >
+						
+						</div>
+						
+
+          </div>
+
+
+
+					<div class="btn-group-fab" role="group" aria-label="FAB Menu">
+					
+				  </div>
+								  </div>
+
+			`
+			);
+		}
+
+		this.setup_page();
+	}
+
+	setup_page() {
+		this.$title_area = this.wrapper.find(".title-area");
+
+		this.$sub_title_area = this.wrapper.find("h6");
+
+		if (this.title) this.set_title(this.title);
+
+		if (this.icon) this.get_main_icon(this.icon);
+
+		this.body = this.main = this.wrapper.find(".layout-main-section");
+		this.container = this.wrapper.find(".page-body");
+		this.sidebar = this.wrapper.find(".layout-side-section");
+		this.footer = this.wrapper.find(".layout-footer");
+		this.indicator = this.wrapper.find(".indicator-pill");
+
+		this.page_actions = this.wrapper.find(".page-actions");
+
+		this.btn_primary = this.page_actions.find(".primary-action");
+		this.btn_secondary = this.page_actions.find(".btn-secondary");
+
+		this.menu = this.page_actions.find(".menu-btn-group .dropdown-menu");
+		this.menu_btn_group = this.page_actions.find(".menu-btn-group");
+
+		this.actions = this.page_actions.find(".actions-btn-group .dropdown-menu");
+		this.actions_btn_group = this.page_actions.find(".actions-btn-group");
+
+		this.standard_actions = this.page_actions.find(".standard-actions");
+		this.custom_actions = this.page_actions.find(".custom-actions");
+
+		this.page_form = $('<div class="page-form row hide"></div>').prependTo(this.main);
+		this.inner_toolbar = this.custom_actions;
+		this.icon_group = this.page_actions.find(".page-icon-group");
+
+		if (this.make_page) {
+			this.make_page();
+		}
+
+		this.card_layout && this.main.addClass("frappe-card");
+
+		// keyboard shortcuts
+		let menu_btn = this.menu_btn_group.find("button");
+		menu_btn.attr("title", __("Menu")).tooltip({ delay: { show: 600, hide: 100 } });
+		frappe.ui.keys
+			.get_shortcut_group(this.page_actions[0])
+			.add(menu_btn, menu_btn.find(".menu-btn-group-label"));
+
+		let action_btn = this.actions_btn_group.find("button");
+		frappe.ui.keys
+			.get_shortcut_group(this.page_actions[0])
+			.add(action_btn, action_btn.find(".actions-btn-group-label"));
+	}
+
+	setup_sidebar_toggle() {
+		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
+		let sidebar_wrapper = this.wrapper.find(".layout-side-section");
+		if (this.disable_sidebar_toggle || !sidebar_wrapper.length) {
+			sidebar_toggle.remove();
+		} else {
+			sidebar_toggle.attr("title", __("Toggle Sidebar")).tooltip({
+				delay: { show: 600, hide: 100 },
+				trigger: "hover",
+			});
+			sidebar_toggle.click(() => {
+				if (frappe.utils.is_xs() || frappe.utils.is_sm()) {
+					this.setup_overlay_sidebar();
+				} else {
+					sidebar_wrapper.toggle();
+				}
+				$(document.body).trigger("toggleSidebar");
+				this.update_sidebar_icon();
+			});
+		}
+	}
+
+	setup_overlay_sidebar() {
+		let overlay_sidebar = this.sidebar.find(".overlay-sidebar").addClass("opened");
+		$('<div class="close-sidebar">').hide().appendTo(this.sidebar).fadeIn();
+		let scroll_container = $("html").css("overflow-y", "hidden");
+
+		this.sidebar.find(".close-sidebar").on("click", (e) => close_sidebar(e));
+		this.sidebar.on("click", "button:not(.dropdown-toggle)", (e) => close_sidebar(e));
+
+		let close_sidebar = () => {
+			scroll_container.css("overflow-y", "");
+			this.sidebar.find("div.close-sidebar").fadeOut(() => {
+				overlay_sidebar
+					.removeClass("opened")
+					.find(".dropdown-toggle")
+					.removeClass("text-muted");
+			});
+		};
+	}
+
+	update_sidebar_icon() {
+		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
+		let sidebar_toggle_icon = sidebar_toggle.find(".sidebar-toggle-icon");
+		let sidebar_wrapper = this.wrapper.find(".layout-side-section");
+		let is_sidebar_visible = $(sidebar_wrapper).is(":visible");
+		sidebar_toggle_icon.html(
+			frappe.utils.icon(is_sidebar_visible ? "sidebar-collapse" : "sidebar-expand", "md")
+		);
+	}
+
+	set_indicator(label, color) {
+		this.clear_indicator().removeClass("hide").html(`<span>${label}</span>`).addClass(color);
+	}
+
+	add_action_icon(icon, click, css_class = "", tooltip_label) {
+		const button = $(`
+			<button class="text-muted btn btn-default ${css_class} icon-btn">
+				${frappe.utils.icon(icon)}
+			</button>
+		`);
+
+		button.appendTo(this.icon_group.removeClass("hide"));
+		button.click(click);
+		button
+			.attr("title", __(tooltip_label || frappe.unscrub(icon)))
+			.tooltip({ delay: { show: 600, hide: 100 }, trigger: "hover" });
+
+		return button;
+	}
+
+	clear_indicator() {
+		return this.indicator.removeClass().addClass("indicator-pill whitespace-nowrap hide");
+	}
+
+	get_icon_label(icon, label) {
+		let icon_name = icon;
+		let size = "xs";
+		if (typeof icon === "object") {
+			icon_name = icon.icon;
+			size = icon.size || "xs";
+		}
+		return `${icon ? frappe.utils.icon(icon_name, size) : ""} <span class="hidden-xs"> ${__(
+			label
+		)} </span>`;
+	}
+
+	set_action(btn, opts) {
+		let me = this;
+		if (opts.icon) {
+			opts.label = this.get_icon_label(opts.icon, opts.label);
+		}
+
+		this.clear_action_of(btn);
+
+		btn.removeClass("hide")
+			.prop("disabled", false)
+			.html(opts.label)
+			.on("click", function () {
+				let response = opts.click.apply(this, [btn]);
+				me.btn_disable_enable(btn, response);
+			});
+
+		if (opts.working_label) {
+			btn.attr("data-working-label", opts.working_label);
+		}
+
+		// alt shortcuts
+		let text_span = btn.find("span");
+		frappe.ui.keys.get_shortcut_group(this).add(btn, text_span.length ? text_span : btn);
+	}
+
+	set_primary_action(label, click, icon, working_label) {
+		this.set_action(this.btn_primary, {
+			label: label,
+			click: click,
+			icon: icon,
+			working_label: working_label,
+		});
+		return this.btn_primary;
+	}
+
+	set_secondary_action(label, click, icon, working_label) {
+		this.set_action(this.btn_secondary, {
+			label: label,
+			click: click,
+			icon: icon,
+			working_label: working_label,
+		});
+
+		return this.btn_secondary;
+	}
+
+	clear_action_of(btn) {
+		btn.addClass("hide").unbind("click").removeAttr("data-working-label");
+	}
+
+	clear_primary_action() {
+		this.clear_action_of(this.btn_primary);
+	}
+
+	clear_secondary_action() {
+		this.clear_action_of(this.btn_secondary);
+	}
+
+	clear_actions() {
+		this.clear_primary_action();
+		this.clear_secondary_action();
+	}
+
+	clear_custom_actions() {
+		this.custom_actions.addClass("hide").empty();
+	}
+
+	clear_icons() {
+		this.icon_group.addClass("hide").empty();
+	}
+
+	//--- Menu --//
+
+	add_menu_item(label, click, standard, shortcut) {
+		return this.add_dropdown_item({
+			label,
+			click,
+			standard,
+			parent: this.menu,
+			shortcut,
+		});
+	}
+
+	add_custom_menu_item(parent, label, click, standard, shortcut, icon = null) {
+		return this.add_dropdown_item({
+			label,
+			click,
+			standard,
+			parent: parent,
+			shortcut,
+			icon,
+		});
+	}
+
+	clear_menu() {
+		this.clear_btn_group(this.menu);
+	}
+
+	show_menu() {
+		this.menu_btn_group.removeClass("hide");
+	}
+
+	hide_menu() {
+		this.menu_btn_group.addClass("hide");
+	}
+
+	show_icon_group() {
+		this.icon_group.removeClass("hide");
+	}
+
+	hide_icon_group() {
+		this.icon_group.addClass("hide");
+	}
+
+	//--- Actions Menu--//
+
+	show_actions_menu() {
+		this.actions_btn_group.removeClass("hide");
+	}
+
+	hide_actions_menu() {
+		this.actions_btn_group.addClass("hide");
+	}
+
+	add_action_item(label, click, standard) {
+		return this.add_dropdown_item({
+			label,
+			click,
+			standard,
+			parent: this.actions,
+		});
+	}
+
+	add_actions_menu_item(label, click, standard, shortcut) {
+		return this.add_dropdown_item({
+			label,
+			click,
+			standard,
+			shortcut,
+			parent: this.actions,
+			show_parent: false,
+		});
+	}
+
+	clear_actions_menu() {
+		this.clear_btn_group(this.actions);
+	}
+
+	//-- Generic --//
+
+	/*
+	 * Add label to given drop down menu. If label, is already contained in the drop
+	 * down menu, it will be ignored.
+	 * @param {string} label - Text for the drop down menu
+	 * @param {function} click - function to be called when `label` is clicked
+	 * @param {Boolean} standard
+	 * @param {object} parent - DOM object representing the parent of the drop down item lists
+	 * @param {string} shortcut - Keyboard shortcut associated with the element
+	 * @param {Boolean} show_parent - Whether to show the dropdown button if dropdown item is added
+	 */
+	add_dropdown_item({
+		label,
+		click,
+		standard,
+		parent,
+		shortcut,
+		show_parent = true,
+		icon = null,
+	}) {
+		if (show_parent) {
+			parent.parent().removeClass("hide");
+		}
+
+		let $link = this.is_in_group_button_dropdown(parent, "li > a.grey-link > span", label);
+		if ($link) return $link;
+
+		let $li;
+		let $icon = ``;
+
+		if (icon) {
+			$icon = `<span class="menu-item-icon">${frappe.utils.icon(icon)}</span>`;
+		}
+
+		if (shortcut) {
+			let shortcut_obj = this.prepare_shortcut_obj(shortcut, click, label);
+			$li = $(`
+				<li>
+					<a class="grey-link dropdown-item" href="#" onClick="return false;">
+						${$icon}
+						<span class="menu-item-label">${label}</span>
+						<kbd class="pull-right">
+							<span>${shortcut_obj.shortcut_label}</span>
+						</kbd>
+					</a>
+				</li>
+			`);
+			frappe.ui.keys.add_shortcut(shortcut_obj);
+		} else {
+			$li = $(`
+				<li>
+					<a class="grey-link dropdown-item" href="#" onClick="return false;">
+						${$icon}
+						<span class="menu-item-label">${label}</span>
+					</a>
+				</li>
+			`);
+		}
+
+		$link = $li.find("a").on("click", click);
+
+		if (standard) {
+			$li.appendTo(parent);
+		} else {
+			this.divider = parent.find(".dropdown-divider");
+			if (!this.divider.length) {
+				this.divider = $('<li class="dropdown-divider user-action"></li>').prependTo(
+					parent
+				);
+			}
+			$li.addClass("user-action").insertBefore(this.divider);
+		}
+
+		// alt shortcut
+		frappe.ui.keys
+			.get_shortcut_group(parent.get(0))
+			.add($link, $link.find(".menu-item-label"));
+
+		return $link;
+	}
+
+	prepare_shortcut_obj(shortcut, click, label) {
+		let shortcut_obj;
+		// convert to object, if shortcut string passed
+		if (typeof shortcut === "string") {
+			shortcut_obj = { shortcut };
+		} else {
+			shortcut_obj = shortcut;
+		}
+		// label
+		if (frappe.utils.is_mac()) {
+			shortcut_obj.shortcut_label = shortcut_obj.shortcut.replace("Ctrl", "⌘");
+		} else {
+			shortcut_obj.shortcut_label = shortcut_obj.shortcut;
+		}
+		// actual shortcut string
+		shortcut_obj.shortcut = shortcut_obj.shortcut.toLowerCase();
+		// action is button click
+		if (!shortcut_obj.action) {
+			shortcut_obj.action = click;
+		}
+		// shortcut description can be button label
+		if (!shortcut_obj.description) {
+			shortcut_obj.description = label;
+		}
+		// page
+		shortcut_obj.page = this;
+		return shortcut_obj;
+	}
+
+	/*
+	 * Check if there already exists a button with a specified label in a specified button group
+	 * @param {object} parent - This should be the `ul` of the button group.
+	 * @param {string} selector - CSS Selector of the button to be searched for. By default, it is `li`.
+	 * @param {string} label - Label of the button
+	 */
+	is_in_group_button_dropdown(parent, selector, label) {
+		if (!selector) selector = "li";
+
+		if (!label || !parent) return false;
+
+		const item_selector = `${selector}[data-label="${encodeURIComponent(label)}"]`;
+
+		const existing_items = $(parent).find(item_selector);
+		return existing_items?.length > 0 && existing_items;
+	}
+
+	clear_btn_group(parent) {
+		parent.empty();
+		parent.parent().addClass("hide");
+	}
+
+	add_divider() {
+		return $('<li class="dropdown-divider"></li>').appendTo(this.menu);
+	}
+
+	get_or_add_inner_group_button(label) {
+		var $group = this.inner_toolbar.find(
+			`.inner-group-button[data-label="${encodeURIComponent(label)}"]`
+		);
+		if (!$group.length) {
+			$group = $(
+				`<div class="inner-group-button" data-label="${encodeURIComponent(label)}">
+					<button type="button" class="btn btn-default ellipsis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						${label}
+						${frappe.utils.icon("select", "xs")}
+					</button>
+					<div role="menu" class="dropdown-menu"></div>
+				</div>`
+			).appendTo(this.inner_toolbar);
+		}
+		return $group;
+	}
+
+	get_inner_group_button(label) {
+		return this.inner_toolbar.find(
+			`.inner-group-button[data-label="${encodeURIComponent(label)}"]`
+		);
+	}
+
+	set_inner_btn_group_as_primary(label) {
+		this.get_or_add_inner_group_button(label)
+			.find("button")
+			.removeClass("btn-default")
+			.addClass("btn-primary");
+	}
+
+	btn_disable_enable(btn, response) {
+		if (response && response.then) {
+			btn.prop("disabled", true);
+			response.then(() => {
+				btn.prop("disabled", false);
+			});
+		} else if (response && response.always) {
+			btn.prop("disabled", true);
+			response.always(() => {
+				btn.prop("disabled", false);
+			});
+		}
+	}
+
+	/*
+	 * Add button to button group. If there exists another button with the same label,
+	 * `add_inner_button` will not add the new button to the button group even if the callback
+	 * function is different.
+	 *
+	 * @param {string} label - Label of the button to be added to the group
+	 * @param {object} action - function to be called when button is clicked
+	 * @param {string} group - Label of the group button
+	 */
+	add_inner_button(label, action, group, type = "default") {
+		var me = this;
+		let _action = function () {
+			let btn = $(this);
+			let response = action();
+			me.btn_disable_enable(btn, response);
+		};
+		if (group) {
+			var $group = this.get_or_add_inner_group_button(group);
+			$(this.inner_toolbar).removeClass("hide");
+
+			if (!this.is_in_group_button_dropdown($group.find(".dropdown-menu"), "a", label)) {
+				return $(
+					`<a class="dropdown-item" href="#" onclick="return false;" data-label="${encodeURIComponent(
+						label
+					)}">${label}</a>`
+				)
+					.on("click", _action)
+					.appendTo($group.find(".dropdown-menu"));
+			}
+		} else {
+			let button = this.inner_toolbar.find(
+				`button[data-label="${encodeURIComponent(label)}"]`
+			);
+			if (button.length == 0) {
+				button = $(`<button data-label="${encodeURIComponent(
+					label
+				)}" class="btn btn-${type} ellipsis">
+					${__(label)}
+				</button>`);
+				button.on("click", _action);
+				button.appendTo(this.inner_toolbar.removeClass("hide"));
+			}
+			return button;
+		}
+	}
+
+	remove_inner_button(label, group) {
+		if (typeof label === "string") {
+			label = [label];
+		}
+		// translate
+		label = label.map((l) => __(l));
+
+		if (group) {
+			var $group = this.get_inner_group_button(__(group));
+			if ($group.length) {
+				$group.find(`.dropdown-item[data-label="${encodeURIComponent(label)}"]`).remove();
+			}
+			if ($group.find(".dropdown-item").length === 0) $group.remove();
+		} else {
+			this.inner_toolbar.find(`button[data-label="${encodeURIComponent(label)}"]`).remove();
+		}
+	}
+
+	change_inner_button_type(label, group, type) {
+		let btn;
+
+		if (group) {
+			var $group = this.get_inner_group_button(__(group));
+			if ($group.length) {
+				btn = $group.find(`.dropdown-item[data-label="${encodeURIComponent(label)}"]`);
+			}
+		} else {
+			btn = this.inner_toolbar.find(`button[data-label="${encodeURIComponent(label)}"]`);
+		}
+
+		if (btn) {
+			btn.removeClass().addClass(`btn btn-${type} ellipsis`);
+		}
+	}
+
+	add_inner_message(message) {
+		let $message = $(`<span class='inner-page-message text-muted small'>${message}</div>`);
+		this.inner_toolbar.find(".inner-page-message").remove();
+		this.inner_toolbar.removeClass("hide").prepend($message);
+
+		return $message;
+	}
+
+	clear_inner_toolbar() {
+		this.inner_toolbar.empty().addClass("hide");
+	}
+
+	//-- Sidebar --//
+
+	add_sidebar_item(label, action, insert_after, prepend) {
+		var parent = this.sidebar.find(".sidebar-menu.standard-actions");
+		var li = $("<li>");
+		var link = $("<a>").html(label).on("click", action).appendTo(li);
+
+		if (insert_after) {
+			li.insertAfter(parent.find(insert_after));
+		} else {
+			if (prepend) {
+				li.prependTo(parent);
+			} else {
+				li.appendTo(parent);
+			}
+		}
+		return link;
+	}
+
+	//---//
+
+	clear_user_actions() {
+		this.menu.find(".user-action").remove();
+	}
+
+	// page::title
+	get_title_area() {
+		return this.$title_area;
+	}
+
+	set_title(title, icon = null, strip = true, tab_title = "") {
+		if (!title) title = "";
+		if (strip) {
+			title = strip_html(title);
+		}
+		this.title = title;
+		frappe.utils.set_title(tab_title || title);
+		if (icon) {
+			title = `${frappe.utils.icon(icon)} ${title}`;
+		}
+		let title_wrapper = this.$title_area.find(".title-text");
+		title_wrapper.html(title);
+		title_wrapper.attr("title", this.title);
+	}
+
+	set_title_sub(txt) {
+		// strip icon
+		this.$sub_title_area.html(txt).toggleClass("hide", !!!txt);
+	}
+
+	get_main_icon(icon) {
+		return this.$title_area
+			.find(".title-icon")
+			.html('<i class="' + icon + ' fa-fw"></i> ')
+			.toggle(true);
+	}
+
+	add_help_button(txt) {
+		//
+	}
+
+	add_button(label, click, opts) {
+		if (!opts) opts = {};
+		let button = $(`<button
+			class="btn ${opts.btn_class || "btn-default"} ${opts.btn_size || "btn-sm"} ellipsis">
+				${opts.icon ? frappe.utils.icon(opts.icon) : ""}
+				${label}
+		</button>`);
+		// Add actions as menu item in Mobile View (similar to "add_custom_button" in forms.js)
+		let menu_item = this.add_menu_item(label, click, false);
+		menu_item.parent().addClass("hidden-xl");
+
+		button.appendTo(this.custom_actions);
+		button.on("click", click);
+		this.custom_actions.removeClass("hide");
+
+		return button;
+	}
+
+	add_custom_button_group(label, icon, parent) {
+		let dropdown_label = `<span class="hidden-xs">
+			<span class="custom-btn-group-label">${__(label)}</span>
+			${frappe.utils.icon("select", "xs")}
+		</span>`;
+
+		if (icon) {
+			dropdown_label = `<span class="hidden-xs">
+				${frappe.utils.icon(icon)}
+				<span class="custom-btn-group-label">${__(label)}</span>
+				${frappe.utils.icon("select", "xs")}
+			</span>
+			<span class="visible-xs">
+				${frappe.utils.icon(icon)}
+			</span>`;
+		}
+
+		let custom_btn_group = $(`
+			<div class="custom-btn-group">
+				<button type="button" class="btn btn-default btn-sm ellipsis" data-toggle="dropdown" aria-expanded="false">
+					${dropdown_label}
+				</button>
+				<ul class="dropdown-menu" role="menu"></ul>
+			</div>
+		`);
+
+		if (!parent) parent = this.custom_actions;
+		parent.removeClass("hide").append(custom_btn_group);
+
+		return custom_btn_group.find(".dropdown-menu");
+	}
+
+	add_dropdown_button(parent, label, click, icon) {
+		frappe.ui.toolbar.add_dropdown_button(parent, label, click, icon);
+	}
+
+	// page::form
+	add_label(label) {
+		this.show_form();
+		return $("<label class='col-md-1 page-only-label'>" + label + " </label>").appendTo(
+			this.page_form
+		);
+	}
+	add_select(label, options) {
+		var field = this.add_field({ label: label, fieldtype: "Select" });
+		return field.$wrapper.find("select").empty().add_options(options);
+	}
+	add_data(label) {
+		var field = this.add_field({ label: label, fieldtype: "Data" });
+		return field.$wrapper.find("input").attr("placeholder", label);
+	}
+	add_date(label, date) {
+		var field = this.add_field({
+			label: label,
+			fieldtype: "Date",
+			default: date,
+		});
+		return field.$wrapper.find("input").attr("placeholder", label);
+	}
+	add_check(label) {
+		return $("<div class='checkbox'><label><input type='checkbox'>" + label + "</label></div>")
+			.appendTo(this.page_form)
+			.find("input");
+	}
+	add_break() {
+		// add further fields in the next line
+		this.page_form.append('<div class="clearfix invisible-xs"></div>');
+	}
+	add_field(df, parent) {
+		this.show_form();
+
+		if (!df.placeholder) {
+			df.placeholder = df.label;
+		}
+
+		df.input_class = "input-xs";
+
+		var f = frappe.ui.form.make_control({
+			df: df,
+			parent: parent || this.page_form,
+			only_input: df.fieldtype == "Check" ? false : true,
+		});
+		f.refresh();
+		$(f.wrapper)
+			.addClass("col-md-2")
+			.attr("title", __(df.label))
+			.tooltip({
+				delay: { show: 600, hide: 100 },
+				trigger: "hover",
+			});
+
+		// html fields in toolbar are only for display
+		if (df.fieldtype == "HTML") {
+			return;
+		}
+
+		// hidden fields dont have $input
+		if (!f.$input) f.make_input();
+
+		f.$input.attr("placeholder", __(df.label));
+
+		if (df.fieldtype === "Check") {
+			$(f.wrapper).find(":first-child").removeClass("col-md-offset-4 col-md-8");
+		}
+
+		if (df.fieldtype == "Button") {
+			$(f.wrapper).find(".page-control-label").html("&nbsp;");
+			f.$input.addClass("btn-xs").css({ width: "100%", "margin-top": "-1px" });
+		}
+
+		if (df["default"]) f.set_input(df["default"]);
+		this.fields_dict[df.fieldname || df.label] = f;
+		return f;
+	}
+	clear_fields() {
+		this.page_form.empty();
+	}
+	show_form() {
+		this.page_form.removeClass("hide");
+	}
+	hide_form() {
+		this.page_form.addClass("hide");
+	}
+	get_form_values() {
+		var values = {};
+		for (let fieldname in this.fields_dict) {
+			let field = this.fields_dict[fieldname];
+			values[fieldname] = field.get_value();
+		}
+		return values;
+	}
+	add_view(name, html) {
+		let element = html;
+		if (typeof html === "string") {
+			element = $(html);
+		}
+		this.views[name] = element.appendTo($(this.wrapper).find(".page-content"));
+		if (!this.current_view) {
+			this.current_view = this.views[name];
+		} else {
+			this.views[name].toggle(false);
+		}
+		return this.views[name];
+	}
+	set_view(name) {
+		if (this.current_view_name === name) return;
+		this.current_view && this.current_view.toggle(false);
+		this.current_view = this.views[name];
+
+		this.previous_view_name = this.current_view_name;
+		this.current_view_name = name;
+
+		this.views[name].toggle(true);
+
+		this.wrapper.trigger("view-change");
+	}
+};
+
+// Sidebar: fetch modules and render persistent sidebar
+function make_persistent_sidebar() {
+	// fetch same data source as app_page (via underlying API)
+	frappe.call({
+		method: "aqooncloud_design.api.template.get_workspace_sidebar_items",
+		callback: function (r) {
+			if (!r || !r.message || !r.message.pages) return;
+			render_sidebar(r.message.pages || []);
+			addSidebarCollapseToggle();
+
+			updateSidebarActiveState();
+		},
+		error: function (err) {
+			console.error("Error loading sidebar:", err);
+		},
+	});
+}
+
+function addSidebarCollapseToggle() {
+	const toggleBtn = $("#rasiin-left-sidebar .sidebar-collapse-toggle");
+
+	if (!toggleBtn.length) return; // If not found, do nothing
+
+	toggleBtn.on("click", function () {
+		$("body").toggleClass("rasiin-sidebar-collapsed");
+		// Update toggle icon
+		const icon = toggleBtn.find("i");
+		if ($("body").hasClass("rasiin-sidebar-collapsed")) {
+			icon.removeClass("fa-chevron-left").addClass("fa-chevron-right");
+			toggleBtn.attr("title", "Expand Sidebar");
+		} else {
+			icon.removeClass("fa-chevron-right").addClass("fa-chevron-left");
+			toggleBtn.attr("title", "Collapse Sidebar");
+		}
+
+		// Trigger resize event to adjust other elements
+		setTimeout(() => {
+			window.dispatchEvent(new Event("resize"));
+			manageNavOverflow(); // Recalculate nav overflow
+		}, 300);
+	});
+}
+
+function render_sidebar(pages) {
+	const body = $(document.body);
+
+	// ensure single instance (fixed left sidebar spanning full height)
+	let leftBar = $("#rasiin-left-sidebar");
+	if (!leftBar.length) {
+		leftBar = $(`<aside id=\"rasiin-left-sidebar\"></aside>`).prependTo(body);
+		body.addClass("rasiin-leftbar-enabled");
+	}
+
+	let items_html = pages
+		.map((p) => {
+			const iconHtml = p.image_icon
+				? `<img src="${p.image_icon}" alt="${p.label}"/>`
+				: p.icon
+				? `<i class="${p.icon}" style="font-size:16px;"></i>`
+				: `<i class="fa fa-cube" style="font-size:14px;"></i>`;
+			return `
+        <li class="sidebar-item" data-home-name="${frappe.utils.escape_html(p.name)}">
+          <a class="sidebar-link" href="#" onclick="return false;">
+            <span class="sidebar-icon">${iconHtml}</span>
+            <span class="sidebar-label">${frappe.utils.escape_html(p.label || p.name)}</span>
+          </a>
+        </li>`;
+		})
+		.join("");
+
+	const userAvatar = frappe.avatar(frappe.session.user, "avatar-medium");
+	// console.log("userAvatar is : ", userAvatar);
+	// console.log("frappe.boot.user.full_name : ", frappe.boot.user.full_name);
+	// console.log("frappe.boot.user.first_name : ", frappe.boot.user.first_name);
+	// console.log("frappe.boot.user : ", frappe.boot.user);
+	// console.log("frappe.boot.user.roles : ", frappe.boot.user.roles);
+	const userFullName =
+		frappe.boot.user.full_name || frappe.boot.user.first_name || frappe.session.user;
+
+	const wrapper_html = `
+      <div class="desk-sidebar sidebar-menu">
+
+        <!-- Brand strip -->
+        <div class="rasiin-brand-bar">
+          <div class="rasiin-brand-icon">A</div>
+          <span class="rasiin-brand-text">Online Intership  <br />  Management System</span>
+        </div>
+
+       
+        <!-- Collapse toggle -->
+        <div class="sidebar-header">
+          <button class="sidebar-collapse-toggle" title="${__("Collapse Sidebar")}">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+        </div>
+
+        <!-- Nav items -->
+        <div class="sidebar-modules">
+          <div class="sidebar-section-label">${__("Modules")}</div>
+          <ul>${items_html}</ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="sidebar-footer">
+          <button id="rasiin-sidebar-logout">
+            <i class="fa fa-sign-out fa-fw"></i>
+            <span>${__("Logout")}</span>
+          </button>
+        </div>
+
+      </div>`;
+
+	leftBar.empty().append(wrapper_html);
+
+	// click handling similar to home page tiles
+	leftBar.find(".sidebar-item").on("click", function () {
+		const homeName = $(this).data("home-name");
+		if (!homeName) return;
+
+		// ✅ ADD THESE TWO LINES FOR IMMEDIATE FEEDBACK
+		$("#rasiin-left-sidebar .sidebar-item").removeClass("active");
+		$(this).addClass("active");
+
+		// Store the selected workspace name
+		localStorage.setItem("rasiin_active_workspace", homeName);
+
+		frappe.db.get_doc("Home Page", `${homeName}`).then((doc) => {
+			let navbardata = doc.home_shortcut || [];
+			localStorage.removeItem("navdata");
+			localStorage.setItem("navdata", JSON.stringify(navbardata));
+			make_header_nav(navbardata);
+
+			if (doc.home_shortcut && doc.home_shortcut.length) {
+				const first = doc.home_shortcut[0];
+				if (first.type == "Report") {
+					frappe.set_route(`/app/query-report/${first.link_to}`);
+				} else if (first.type == "Insights Dashboard") {
+					frappe.set_route(`/insights/public/dashboard/${first.dashboard_link}`);
+				} else {
+					frappe.set_route(`/app/${first.link_to.replace(/\s/g, "-").toLowerCase()}`);
+				}
+			}
+
+			$(".header_sec").show();
+			$(".page-head").show();
+
+			//!---- No longer need
+			// active state
+			// leftBar.find(".sidebar-item").removeClass("active");
+			// $(this).addClass("active");
+		});
+	});
+
+	// logout action
+	leftBar.find("#rasiin-sidebar-logout").on("click", function (e) {
+		e.preventDefault();
+		frappe.confirm(
+			__("Are you sure you want to logout?"),
+			() => frappe.app.logout(),
+			() => {}
+		);
+	});
+
+	// user menu actions
+	const userBlock = leftBar.find(".sidebar-user");
+	const userMenu = leftBar.find("#rasiin-sidebar-user-menu");
+	userBlock.on("click", function (e) {
+		e.stopPropagation();
+		userMenu.toggle();
+	});
+	$(document).on("click", function () {
+		userMenu.hide();
+	});
+	leftBar.find("#rasiin-user-settings").on("click", function (e) {
+		e.stopPropagation();
+		frappe.ui.toolbar.route_to_user();
+		userMenu.hide();
+	});
+	leftBar.find("#rasiin-user-reload").on("click", function (e) {
+		e.stopPropagation();
+		frappe.ui.toolbar.clear_cache();
+		userMenu.hide();
+	});
+}
+
+function updateSidebarActiveState() {
+	try {
+		const activeWorkspace = localStorage.getItem("rasiin_active_workspace");
+
+		if (!activeWorkspace) {
+			return;
+		}
+
+		const sidebar = $("#rasiin-left-sidebar");
+
+		if (!sidebar.length) return;
+
+		sidebar.find(".sidebar-item").removeClass("active");
+
+		const selector = `.sidebar-item[data-home-name="${activeWorkspace}"]`;
+		const activeItem = sidebar.find(selector);
+
+		if (activeItem.length) {
+			activeItem.addClass("active");
+		} else {
+		}
+	} catch (e) {
+		// console.error("Failed to update sidebar active state:", e);
+	}
+}
+
+// Dynamically collapse overflowing nav items into a More dropdown
+function manageNavOverflow() {
+	try {
+		const header = document.querySelector(".header.navbar");
+		if (!header) return;
+		const linksContainer = header.querySelector(".logo__navlinks");
+		if (!linksContainer) return;
+		const navLinks = Array.from(
+			linksContainer.querySelectorAll(".nav-item.nav-link, .dropdown.nav-item")
+		);
+		if (!navLinks.length) return;
+
+		// Remove existing dynamic More menu if present
+		let dynamicMore = linksContainer.querySelector(".nav-overflow-more");
+		if (dynamicMore) dynamicMore.remove();
+
+		// Reset visibility of all nav items
+		navLinks.forEach((el) => (el.style.display = ""));
+
+		// Create a More dropdown shell
+		const moreShell = document.createElement("div");
+		moreShell.className = "dropdown nav-item nav-overflow-more";
+		moreShell.innerHTML = `
+      <a style="color:#fff" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${__(
+			"More"
+		)}</a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+    `;
+
+		// Primary rule: keep first 6 visible, overflow goes into More
+		const keepCount = 6;
+		const move = navLinks.slice(keepCount);
+		const keep = navLinks.slice(0, keepCount);
+		keep.forEach((el) => (el.style.display = ""));
+
+		if (move.length) {
+			linksContainer.appendChild(moreShell);
+			const menu = moreShell.querySelector(".dropdown-menu");
+			move.forEach((el) => {
+				const a =
+					el.querySelector("a.nav-link") || el.querySelector("a.dropdown-toggle") || el;
+				if (!a) return;
+				const label = a.textContent.trim();
+				const href = a.getAttribute("href");
+				const item = document.createElement("a");
+				item.className = "dropdown-item";
+				if (href) item.setAttribute("href", href);
+				item.textContent = label;
+				item.addEventListener("click", function () {
+					if (href && href.startsWith("/")) {
+						window.location.href = href;
+					}
+				});
+				menu.appendChild(item);
+				el.style.display = "none";
+			});
+		}
+	} catch (e) {
+		// noop
+	}
+}
+// let navbardata = [{"title" : "OPD Orders" , "type" : "DocType"}, {"title" : "IPD Order" , "type" : "DocType"} , {"title" : "Que" , "type" : "DocType"}]
+
+frappe.Application = class extends frappe.Application {
+	constructor() {
+		super();
+		this.make();
+	}
+
+	make() {}
+	make_nav_bar() {
+		$('<div class = "header_sec"> </div>').appendTo("header");
+	}
+};
+
+frappe.views.Workspace = class customWorkspace {
+	constructor(wrapper) {
+		this.wrapper = $(wrapper);
+		this.page = wrapper.page;
+		this.title = "Home";
+		// this.prepare_container()
+	}
+
+	show() {
+		// Always keep navbar & sidebar visible
+		$(".page-head").show();
+		$(".header_sec").show();
+
+		let home_p = $(".page-container");
+		home_p.empty();
+
+		// Build persistent sidebar and header immediately
+		make_persistent_sidebar();
+
+		// Get initial navdata or use empty array
+		let navbardata = JSON.parse(localStorage.getItem("navdata") || "[]");
+		make_header_nav(navbardata);
+
+		// 🔹 Auto-select first module in sidebar after a short delay
+		this.autoSelectFirstModule();
+
+		const placeholder = `
+      <div>
+      </div>
+    `;
+
+		home_p.html(placeholder);
+		console.log("Workspace placeholder rendered.");
+	}
+
+	// ✅ --- Simplified and Corrected `autoSelectFirstModule` Function
+	autoSelectFirstModule() {
+		// Wait for sidebar to be rendered
+		setTimeout(() => {
+			const sidebar = $("#rasiin-left-sidebar");
+			if (!sidebar.length) {
+				console.log("Sidebar not found, retrying...");
+				setTimeout(() => this.autoSelectFirstModule(), 500);
+				return;
+			}
+
+			const firstModule = sidebar.find(".sidebar-item").first();
+
+			if (firstModule.length) {
+				const homeName = firstModule.data("home-name");
+
+				if (homeName) {
+					console.log("Auto-selecting first module:", homeName);
+
+					// Step 1: Set the active workspace in localStorage. This is the most important part.
+					localStorage.setItem("rasiin_active_workspace", homeName);
+
+					// Step 2: Load the module's data.
+					frappe.db
+						.get_doc("Home Page", homeName)
+						.then((doc) => {
+							let navbardata = doc.home_shortcut || [];
+							localStorage.setItem("navdata", JSON.stringify(navbardata));
+
+							// Step 3: Rebuild the header. This will automatically call updateSidebarActiveState()
+							// and apply the 'active' class correctly based on what we stored in localStorage.
+							make_header_nav(navbardata);
+
+							// Step 4: Navigate to the first item in that module.
+							if (doc.home_shortcut && doc.home_shortcut.length > 0) {
+								const first = doc.home_shortcut[0];
+								if (first.type == "Report") {
+									frappe.set_route(`/app/query-report/${first.link_to}`);
+								} else if (first.type == "Insights Dashboard") {
+									frappe.set_route(
+										`/insights/public/dashboard/${first.dashboard_link}`
+									);
+								} else if (first.type == "Dashboard") {
+									frappe.set_route(
+										`/app/dashboard-view/${encodeURIComponent(first.link_to)}`
+									);
+								} else if (first.link_to) {
+									frappe.set_route(
+										`/app/${first.link_to.replace(/\s/g, "-").toLowerCase()}`
+									);
+								}
+							}
+						})
+						.catch((error) => {
+							console.error("Error loading first module:", error);
+						});
+				}
+			} else {
+				console.log("No sidebar modules found");
+			}
+		}, 1000);
+	}
+
+	prepare_container() {}
+};

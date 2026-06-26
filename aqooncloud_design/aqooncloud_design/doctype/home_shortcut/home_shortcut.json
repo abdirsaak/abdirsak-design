@@ -1,0 +1,123 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "creation": "2025-10-14 08:15:20.264252",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "section_break_4oo3",
+    "type",
+    "link_to",
+    "doc_view",
+    "column_break_6wwo",
+    "label",
+    "icon",
+    "restrict_to_domain",
+    "count_filter_section",
+    "stats_filter",
+    "column_break_h48x",
+    "color",
+    "format",
+    "group",
+    "dashboard_link"
+  ],
+  "fields": [
+    {
+      "fieldname": "section_break_4oo3",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "type",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Type",
+      "options": "DocType\nReport\nPage\nDashboard\nInsights Dashboard",
+      "reqd": 1
+    },
+    {
+      "fieldname": "link_to",
+      "fieldtype": "Dynamic Link",
+      "in_list_view": 1,
+      "label": "Link To",
+      "options": "type",
+      "reqd": 1
+    },
+    {
+      "fieldname": "doc_view",
+      "fieldtype": "Select",
+      "label": "DocType View",
+      "options": "\nList\nReport Builder\nDashboard\nTree\nNew\nCalendar"
+    },
+    {
+      "fieldname": "column_break_6wwo",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "label",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Label",
+      "reqd": 1
+    },
+    {
+      "fieldname": "icon",
+      "fieldtype": "Data",
+      "label": "Icon"
+    },
+    {
+      "fieldname": "restrict_to_domain",
+      "fieldtype": "Data",
+      "label": "Restrict to Domain"
+    },
+    {
+      "fieldname": "count_filter_section",
+      "fieldtype": "Section Break",
+      "label": "Count Filter"
+    },
+    {
+      "fieldname": "stats_filter",
+      "fieldtype": "Code",
+      "label": "Count Filter",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "column_break_h48x",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "color",
+      "fieldtype": "Color",
+      "label": "Color"
+    },
+    {
+      "fieldname": "format",
+      "fieldtype": "Data",
+      "label": "Format"
+    },
+    {
+      "fieldname": "group",
+      "fieldtype": "Data",
+      "label": "Group "
+    },
+    {
+      "fieldname": "dashboard_link",
+      "fieldtype": "Data",
+      "label": "Dashboard link"
+    }
+  ],
+  "grid_page_length": 50,
+  "index_web_pages_for_search": 1,
+  "istable": 1,
+  "links": [],
+  "modified": "2025-10-14 08:19:05.688289",
+  "modified_by": "Administrator",
+  "module": "aqoonCloud_design",
+  "name": "Home Shortcut",
+  "owner": "Administrator",
+  "permissions": [],
+  "row_format": "Dynamic",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}

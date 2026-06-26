@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:label",
+ "creation": "2025-10-14 08:21:06.312392",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_y4nc",
+  "label",
+  "module",
+  "sequence_id",
+  "for_user",
+  "parent_page",
+  "column_break_kbga",
+  "image_icon",
+  "icon",
+  "color",
+  "restrict_to_domain",
+  "hide_custom",
+  "public",
+  "section_break_fkar",
+  "content",
+  "home_shortcut",
+  "roles"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_y4nc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "sequence_id",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sequence Id"
+  },
+  {
+   "fieldname": "for_user",
+   "fieldtype": "Data",
+   "label": "For User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "parent_page",
+   "fieldtype": "Data",
+   "label": "Parent Page",
+   "read_only": 1
+  },
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Module",
+   "options": "Module Def"
+  },
+  {
+   "fieldname": "column_break_kbga",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image_icon",
+   "fieldtype": "Attach",
+   "label": "Image Icon"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Icon",
+   "label": "Icon"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Color",
+   "label": "Color"
+  },
+  {
+   "fieldname": "restrict_to_domain",
+   "fieldtype": "Link",
+   "label": "Restrict to Domain",
+   "options": "Domain"
+  },
+  {
+   "default": "0",
+   "fieldname": "public",
+   "fieldtype": "Check",
+   "label": "Public",
+   "read_only": 1
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Long Text",
+   "label": "Content",
+   "read_only": 1
+  },
+  {
+   "fieldname": "home_shortcut",
+   "fieldtype": "Table",
+   "label": "Home Shortcut",
+   "options": "Home Shortcut"
+  },
+  {
+   "fieldname": "roles",
+   "fieldtype": "Table",
+   "label": "Roles",
+   "options": "Has Role"
+  },
+  {
+   "fieldname": "section_break_fkar",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "description": "Checking this will hide custom doctypes and reports cards in Links section",
+   "fieldname": "hide_custom",
+   "fieldtype": "Check",
+   "label": "Hide Custom DocTypes and Reports"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-08 16:48:50.697003",
+ "modified_by": "Administrator",
+ "module": "aqoonCloud_design",
+ "name": "Home Page",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
