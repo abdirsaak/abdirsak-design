@@ -3330,7 +3330,7 @@ function render_sidebar(pages) {
         <!-- Brand strip -->
         <div class="rasiin-brand-bar">
           <div class="rasiin-brand-icon">A</div>
-          <span class="rasiin-brand-text">Online Intership  <br />  Management System</span>
+          <span class="rasiin-brand-text">HU passcard System</span>
         </div>
 
        
@@ -3342,8 +3342,8 @@ function render_sidebar(pages) {
         </div>
 
         <!-- Nav items -->
-        <div class="sidebar-modules">
-          <div class="sidebar-section-label">${__("Modules")}</div>
+          <!--  <div class="sidebar-modules">
+          <div class="sidebar-section-label">${__("Modules")}</div> -->
           <ul>${items_html}</ul>
         </div>
 
