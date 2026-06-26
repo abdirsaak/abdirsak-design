@@ -75,10 +75,10 @@ def app_page():
 	# frappe.errprint(get_balance_shet())
 	data = get_workspace_sidebar_items()['pages']
 	# frappe.errprint(data)
-	# return frappe.render_template("aqooncloud_design/api/templates/new_app_page.html", {"data" : data})  , "test"
+	# return frappe.render_template("abdirsak_design/api/templates/new_app_page.html", {"data" : data})  , "test"
 
 
-	renderedTemplate = frappe.render_template("aqooncloud_design/api/templates/new_app_page.html", {"data" : data});
+	renderedTemplate = frappe.render_template("abdirsak_design/api/templates/new_app_page.html", {"data" : data});
 
 	return [renderedTemplate,data]
 

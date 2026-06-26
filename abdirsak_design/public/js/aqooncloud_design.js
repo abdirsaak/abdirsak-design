@@ -350,7 +350,7 @@
 // 	}
 
 // 	frappe.call({
-// 		method: "aqooncloud_design.api.template.get_shortcut_counts",
+// 		method: "abdirsak_design.api.template.get_shortcut_counts",
 // 		args: {
 // 			// Pass the list of shortcuts as a JSON string
 // 			shortcuts: JSON.stringify(shortcuts_with_filters),
@@ -1420,7 +1420,7 @@
 // function make_persistent_sidebar() {
 // 	// fetch same data source as app_page (via underlying API)
 // 	frappe.call({
-// 		method: "aqooncloud_design.api.template.get_workspace_sidebar_items",
+// 		method: "abdirsak_design.api.template.get_workspace_sidebar_items",
 // 		callback: function (r) {
 // 			if (!r || !r.message || !r.message.pages) return;
 // 			render_sidebar(r.message.pages || []);
@@ -2179,7 +2179,7 @@ function fetch_and_update_counts(navbardata) {
 	}
 
 	frappe.call({
-		method: "aqooncloud_design.api.template.get_shortcut_counts",
+		method: "abdirsak_design.api.template.get_shortcut_counts",
 		args: {
 			// Pass the list of shortcuts as a JSON string
 			shortcuts: JSON.stringify(shortcuts_with_filters),
@@ -3249,7 +3249,7 @@ frappe.ui.Page = class Page {
 function make_persistent_sidebar() {
 	// fetch same data source as app_page (via underlying API)
 	frappe.call({
-		method: "aqooncloud_design.api.template.get_workspace_sidebar_items",
+		method: "abdirsak_design.api.template.get_workspace_sidebar_items",
 		callback: function (r) {
 			if (!r || !r.message || !r.message.pages) return;
 			render_sidebar(r.message.pages || []);
